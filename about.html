@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NanoDx Corp — About Us</title>
+  <link rel="icon" type="image/png" href="logo/icon.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            nd: {
+              navy: '#071B45',
+              ocean: '#075BA5',
+              cyan: '#079DD0',
+              teal: '#16B8C4',
+              charcoal: '#2C3E50'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style/style.css" />
+
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem('nanodx-theme') || 'system';
+        var dark = mode === 'dark' ||
+          (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+
+<body class="antialiased">
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-12 sm:h-14 w-auto object-contain" />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About Us</a>
+        <a href="products.html" class="nav-link ">Products</a>
+        <a href="features.html" class="nav-link">Services</a>
+        <a href="career.html" class="nav-link">Career</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="btn-outline px-5 py-2 rounded-xl text-sm">Login</a>
+        <a href="register.html" class="btn-primary px-5 py-2 rounded-xl text-sm">Register</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-2 lg:hidden">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+        <button id="mobileMenuBtn" class="text-[color:var(--nd-text)] p-2" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu hidden lg:hidden">
+      <a href="index.html" class="nav-link block">Home</a>
+
+
+      <a href="about.html" class="nav-link active block">About Us</a>
+      <a href="products.html" class="nav-link  block">Products</a>
+      <a href="features.html" class="nav-link block">Services</a>
+      <a href="career.html" class="nav-link block">Career</a>
+      <a href="contact.html" class="nav-link block">Contact</a>
+      <div class="flex flex-col gap-3 pt-2">
+        <a href="login.html" class="btn-outline px-5 py-2.5 rounded-xl text-center">Login</a>
+        <a href="register.html" class="btn-primary px-5 py-2.5 rounded-xl text-center">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN ================= -->
+  <main class="min-h-screen">
+
+    <!-- HERO -->
+    <section class="max-w-7xl mx-auto px-5 py-16 lg:py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="brand-heading text-4xl md:text-6xl font-bold leading-tight">
+          Driving Innovation in Diagnostics
+        </h1>
+        <p class="text-[color:var(--nd-text-soft)] mt-6 text-lg leading-8">
+          Established in 2021 in Bradenton, FL, NanoDx is dedicated to providing high-quality
+          reagents, antibodies, nanomaterials, and comprehensive products and services for research,
+          academia, and industry partners worldwide.
+        </p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="max-w-7xl mx-auto px-5 py-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div class="stat-card"><h2 class="stat-value">2021</h2><p class="stat-label">Founded</p></div>
+        <div class="stat-card"><h2 class="stat-value">50+</h2><p class="stat-label">Partners Served</p></div>
+        <div class="stat-card"><h2 class="stat-value">12+</h2><p class="stat-label">Team Members</p></div>
+        <div class="stat-card"><h2 class="stat-value">Global</h2><p class="stat-label">Reach</p></div>
+      </div>
+    </section>
+
+    <!-- MISSION -->
+    <section class="max-w-7xl mx-auto px-5 py-16">
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="brand-heading text-3xl sm:text-4xl font-bold">Our Mission</h2>
+          <p class="text-[color:var(--nd-text-soft)] mt-6 leading-8">
+            To accelerate scientific discovery and clinical translation by delivering reliable,
+            reproducible nanomaterials, reagents, and assay development services — enabling our
+            partners to bring better diagnostics to the people who need them.
+          </p>
+          <p class="text-[color:var(--nd-text-soft)] mt-4 leading-8">
+            We believe that great science happens at the intersection of rigorous engineering and
+            deep collaboration. That's why every NanoDx project is treated as a partnership, not a
+            transaction.
+          </p>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="stat-card">
+            <i class="fas fa-flask text-2xl text-[color:var(--nd-cyan)]"></i>
+            <h3 class="feature-title mt-3 text-base">Scientific Excellence</h3>
+            <p class="feature-text text-sm">Rigorous QC and reproducibility in every batch.</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-handshake text-2xl text-[color:var(--nd-cyan)]"></i>
+            <h3 class="feature-title mt-3 text-base">Partnership</h3>
+            <p class="feature-text text-sm">We collaborate closely to solve tough problems.</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-lightbulb text-2xl text-[color:var(--nd-cyan)]"></i>
+            <h3 class="feature-title mt-3 text-base">Innovation</h3>
+            <p class="feature-text text-sm">Continuous investment in new materials &amp; methods.</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-globe text-2xl text-[color:var(--nd-cyan)]"></i>
+            <h3 class="feature-title mt-3 text-base">Global Reach</h3>
+            <p class="feature-text text-sm">Serving academic and industrial partners worldwide.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section class="max-w-7xl mx-auto px-5 py-16">
+      <div class="mb-12">
+        <h2 class="brand-heading text-3xl sm:text-4xl font-bold">Our Leadership</h2>
+        <p class="text-[color:var(--nd-text-soft)] mt-3">
+          A team with deep experience across nanomaterials, diagnostics, and product development.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-[280px_1fr] gap-8 bg-[color:var(--nd-surface)] rounded-[30px] border border-[color:var(--nd-border)] p-6 sm:p-10">
+        <div>
+          <div class="h-[280px] sm:h-[350px] rounded-3xl overflow-hidden border border-[color:var(--nd-border)]">
+            <img src="https://placehold.co/280x350/075BA5/ffffff?text=PD" alt="Priyanka Dubey" class="h-full w-full object-cover" />
+          </div>
+        </div>
+        <div>
+          <h3 class="section-heading text-2xl sm:text-3xl font-bold">Priyanka Dubey</h3>
+          <p class="text-[color:var(--nd-accent)] text-base sm:text-lg mt-2">CEO, NanoDx</p>
+          <div class="space-y-4 mt-6 leading-8 text-[color:var(--nd-text-soft)]">
+            <p>Priyanka Dubey is a dynamic and multifaceted leader, currently serving as the CEO of NanoDx.</p>
+            <p>With a unique blend of expertise spanning software engineering and human resources, Priyanka brings a holistic and strategic approach to the company's vision and operations.</p>
+            <p>Her leadership is instrumental in guiding NanoDx's mission to provide high-quality reagents, antibodies, and nanomaterials to partners worldwide.</p>
+          </div>
+          <div class="flex gap-4 mt-6">
+            <a href="#" aria-label="LinkedIn" class="w-10 h-10 rounded-xl flex items-center justify-center border border-[color:var(--nd-border)] text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] hover:border-[color:var(--nd-accent)] transition">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" aria-label="Email" class="w-10 h-10 rounded-xl flex items-center justify-center border border-[color:var(--nd-border)] text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] hover:border-[color:var(--nd-accent)] transition">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES -->
+    <section class="max-w-7xl mx-auto px-5 py-16">
+      <div class="mb-12">
+        <h2 class="brand-heading text-3xl sm:text-4xl font-bold">What We Do</h2>
+        <p class="text-[color:var(--nd-text-soft)] mt-3">
+          A snapshot of our product lines and development services.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-atom"></i></div>
+          <h3 class="feature-title text-base">Gold Nanoparticles</h3>
+          <p class="feature-text text-sm">Custom sizes, surfaces, and conjugates.</p>
+        </div>
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-flask"></i></div>
+          <h3 class="feature-title text-base">Silica Nanoparticles</h3>
+          <p class="feature-text text-sm">Dye-doped and plain, narrow size distribution.</p>
+        </div>
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+          <h3 class="feature-title text-base">Magnetic Particles</h3>
+          <p class="feature-text text-sm">For separation, extraction, and detection.</p>
+        </div>
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-fire"></i></div>
+          <h3 class="feature-title text-base">Fusion Particles</h3>
+          <p class="feature-text text-sm">Multi-modal cores for advanced assays.</p>
+        </div>
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-vial"></i></div>
+          <h3 class="feature-title text-base">Immunoassay Development</h3>
+          <p class="feature-text text-sm">ELISA, CLIA, and nano-immunoassay formats.</p>
+        </div>
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-tint"></i></div>
+          <h3 class="feature-title text-base">Lateral Flow Development</h3>
+          <p class="feature-text text-sm">Rapid immunochromatographic assays.</p>
+        </div>
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+          <h3 class="feature-title text-base">Surface Coatings</h3>
+          <p class="feature-text text-sm">SAMs, polymers, and plasma treatments.</p>
+        </div>
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-dna"></i></div>
+          <h3 class="feature-title text-base">Custom Antibodies</h3>
+          <p class="feature-text text-sm">Polyclonal and monoclonal development.</p>
+        </div>
+        <div class="feature-card !p-6">
+          <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+          <h3 class="feature-title text-base">Biosensor Prototyping</h3>
+          <p class="feature-text text-sm">Electrochemical, optical, and SPR platforms.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="max-w-7xl mx-auto px-5 py-16">
+      <div class="mb-12">
+        <h2 class="brand-heading text-3xl sm:text-4xl font-bold">Our Journey</h2>
+        <p class="text-[color:var(--nd-text-soft)] mt-3">Key milestones since our founding.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="feature-card text-center">
+          <div class="feature-icon mx-auto"><i class="fas fa-flag"></i></div>
+          <h3 class="feature-title">2021</h3>
+          <p class="feature-text">NanoDx Corp founded in Bradenton, FL with a focus on nanomaterials for diagnostics.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="feature-icon mx-auto"><i class="fas fa-atom"></i></div>
+          <h3 class="feature-title">2022</h3>
+          <p class="feature-text">Launched our gold and silica nanoparticle product lines with full QC documentation.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="feature-icon mx-auto"><i class="fas fa-vial"></i></div>
+          <h3 class="feature-title">2023</h3>
+          <p class="feature-text">Expanded into immunoassay and lateral-flow development services for industry partners.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="feature-icon mx-auto"><i class="fas fa-globe"></i></div>
+          <h3 class="feature-title">2024+</h3>
+          <p class="feature-text">Serving academic and industrial customers across North America, Europe, and Asia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="max-w-5xl mx-auto px-5 py-20">
+      <div class="cta-band rounded-[35px] p-8 sm:p-12 text-center">
+        <h2 class="text-2xl sm:text-4xl font-bold text-white">Partner With NanoDx</h2>
+        <p class="mt-4 text-cyan-50/90 text-base sm:text-lg">
+          From custom nanomaterials to full assay development — let's build something together.
+        </p>
+        <a href="contact.html" class="inline-block mt-8 bg-white text-[#075BA5] px-8 py-4 rounded-xl font-semibold hover:scale-105 transition">
+          Contact Us
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="max-w-7xl mx-auto px-5 py-14">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <div class="flex items-center gap-3">
+            <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-14 w-auto object-contain" />
+            <div>
+              <h2 class="wordmark text-xl">NanoDx</h2>
+              <p class="text-sm text-[color:var(--nd-text-soft)]">Diagnostic Solutions</p>
+            </div>
+          </div>
+          <p class="text-[color:var(--nd-text-soft)] mt-5 leading-7">
+            NanoDx Corp provides Reagents, Antibodies, Nanomaterials and Custom Solutions for academic
+            and industry partners worldwide in developing Biosensors and In Vitro Diagnostics.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-title">Quick Links</h3>
+          <div class="flex flex-col gap-3">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="about.html" class="footer-link">About Us</a>
+            <a href="features.html" class="footer-link">Products &amp; Services</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-title">Contact Information</h3>
+          <div class="space-y-3 text-[color:var(--nd-text-soft)]">
+            <p><i class="fas fa-envelope mr-2 text-[color:var(--nd-accent)]"></i>sales@nanodxcorp.com</p>
+            <p><i class="fas fa-phone-alt mr-2 text-[color:var(--nd-accent)]"></i>+1 (941) 504 8508</p>
+            <p><i class="fas fa-map-marker-alt mr-2 text-[color:var(--nd-accent)]"></i>Tampa Bay Area, FL</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-[color:var(--nd-border)] mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[color:var(--nd-text-soft)] text-sm text-center">
+          © <span id="year">2026</span> NanoDx Corp. All rights reserved.
+        </p>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <a href="cookies.html" class="footer-link text-sm">Cookies</a>
+          <a href="intellectual.html" class="footer-link text-sm">Intellectual Property Policy</a>
+          <a href="privacy.html" class="footer-link text-sm">Privacy Policy</a>
+          <a href="terms.html" class="footer-link text-sm">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/+18602086000?text=Hello%20NanoDx%20Corp%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products%20and%20services."
+     target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
+     class="fixed bottom-6 right-6 z-[100] group">
+    <span class="absolute inset-0 rounded-full bg-nd-cyan opacity-60 animate-ping"></span>
+    <span class="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-nd-ocean to-nd-cyan shadow-2xl shadow-nd-cyan/40 transition-transform duration-300 group-hover:scale-110">
+      <i class="fab fa-whatsapp text-white text-3xl md:text-4xl"></i>
+    </span>
+    <span class="hidden md:block absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[color:var(--nd-surface)] text-[color:var(--nd-text)] text-sm px-3 py-2 rounded-lg border border-[color:var(--nd-border)] opacity-0 group-hover:opacity-100 transition pointer-events-none">
+      Chat with us
+    </span>
+  </a>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

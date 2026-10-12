@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NanoDx Corp — Register</title>
+  <link rel="icon" type="image/png" href="logo/icon.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            nd: {
+              navy: '#071B45',
+              ocean: '#075BA5',
+              cyan: '#079DD0',
+              teal: '#16B8C4',
+              charcoal: '#2C3E50'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style/style.css" />
+
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem('nanodx-theme') || 'system';
+        var dark = mode === 'dark' ||
+          (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+
+<body class="antialiased">
+
+  <!-- ================= HEADER ================= -->
+  <!-- <header class="site-header">
+    <div class="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-12 sm:h-14 w-auto object-contain" />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="career.html" class="nav-link">Career</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="btn-outline px-5 py-2 rounded-xl text-sm">Login</a>
+        <a href="register.html" class="nav-link active">Register</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-2 lg:hidden">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+        <button id="mobileMenuBtn" class="text-[color:var(--nd-text)] p-2" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu hidden lg:hidden">
+      <a href="index.html" class="nav-link block">Home</a>
+      <a href="features.html" class="nav-link block">Features</a>
+      <a href="about.html" class="nav-link block">About Us</a>
+      <a href="career.html" class="nav-link block">Career</a>
+      <a href="contact.html" class="nav-link block">Contact</a>
+      <a href="login.html" class="nav-link block">Login</a>
+      <div class="flex flex-col gap-3 pt-2">
+        <a href="register.html" class="btn-primary px-5 py-2.5 rounded-xl text-center">Register</a>
+      </div>
+    </div>
+  </header> -->
+
+  <!-- ================= MAIN ================= -->
+  <main class="min-h-[calc(100vh-140px)]">
+    <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-140px)]">
+
+      <!-- LEFT: BRAND PANEL -->
+      <div class="hidden lg:flex auth-panel px-10 py-12 items-center">
+        <div class="relative z-10 max-w-xl mx-auto">
+          <img src="logo/icon.png" alt="NanoDx" class="logo-auto-blend h-16 w-auto object-contain mb-8" />
+
+          <h1 class="text-3xl xl:text-5xl font-bold text-white leading-tight">
+            Join the
+            <span class="text-[color:var(--nd-cyan)]">NanoDx Research Network</span>
+          </h1>
+
+          <p class="mt-6 text-cyan-50/85 text-lg leading-7">
+            Create your free account to access technical documentation, request quotes, and manage
+            your nanomaterial orders — all in one place.
+          </p>
+
+          <div class="mt-10 space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+                <i class="fas fa-file-pdf text-cyan-200"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold">Technical Documentation</h3>
+                <p class="text-sm text-cyan-50/80 mt-1">Datasheets, protocols, and CoAs on demand.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+                <i class="fas fa-tags text-cyan-200"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold">Member Pricing</h3>
+                <p class="text-sm text-cyan-50/80 mt-1">Volume discounts on catalog items.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+                <i class="fas fa-headset text-cyan-200"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold">Priority Support</h3>
+                <p class="text-sm text-cyan-50/80 mt-1">Direct line to our scientific team.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: REGISTER FORM -->
+      <div class="flex items-center justify-center px-4 sm:px-6 py-12">
+        <div class="w-full max-w-md">
+
+          <div class="flex justify-between items-center mb-4">
+            <a href="index.html" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] text-sm transition">
+              <i class="fas fa-arrow-left mr-1"></i> Back to Home
+            </a>
+            <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+              <i class="fas fa-sun" data-theme-icon></i>
+            </button>
+          </div>
+
+          <div class="form-card">
+            <div class="text-center mb-8">
+              <div class="flex justify-center mb-6">
+                <img src="logo/icon.png" alt="NanoDx Logo" class="logo-auto-blend h-16 md:h-20 w-auto object-contain" />
+              </div>
+              <h2 class="section-heading text-2xl md:text-3xl font-bold">Create Your Account</h2>
+              <p class="text-[color:var(--nd-text-soft)] mt-2 text-sm">Register your NanoDx account in seconds</p>
+            </div>
+
+            <form id="registerForm" class="space-y-5" novalidate>
+              <div>
+                <label class="form-label" for="r-name">Full Name</label>
+                <div class="relative">
+                  <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] text-sm pointer-events-none"></i>
+                  <input id="r-name" type="text" name="full_name" required autocomplete="name"
+                         placeholder="Jane Doe" class="form-input pl-11" />
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label" for="r-email">Email</label>
+                <div class="relative">
+                  <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] text-sm pointer-events-none"></i>
+                  <input id="r-email" type="email" name="email" required autocomplete="email"
+                         placeholder="you@company.com" class="form-input pl-11" />
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label" for="r-phone">Mobile Number</label>
+                <div class="relative">
+                  <i class="fas fa-phone-alt absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] text-sm pointer-events-none"></i>
+                  <input id="r-phone" type="tel" name="phone" required autocomplete="tel"
+                         placeholder="+1 (941) 000 0000" class="form-input pl-11" />
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="form-label" for="r-pass">Password</label>
+                  <div class="relative">
+                    <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] text-sm pointer-events-none"></i>
+                    <input id="r-pass" type="password" name="password" required autocomplete="new-password"
+                           placeholder="Create password" class="form-input pl-11 pr-11" minlength="8" />
+                    <button type="button" id="togglePass1"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition"
+                            aria-label="Show password">
+                      <i class="fas fa-eye text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="form-label" for="r-pass2">Confirm</label>
+                  <div class="relative">
+                    <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] text-sm pointer-events-none"></i>
+                    <input id="r-pass2" type="password" name="password2" required autocomplete="new-password"
+                           placeholder="Repeat password" class="form-input pl-11 pr-11" />
+                    <button type="button" id="togglePass2"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition"
+                            aria-label="Show password">
+                      <i class="fas fa-eye text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Password strength -->
+              <div>
+                <div class="flex gap-1.5 mb-1.5" id="strengthBar">
+                  <span class="flex-1 h-1 rounded-full bg-[color:var(--nd-border)]"></span>
+                  <span class="flex-1 h-1 rounded-full bg-[color:var(--nd-border)]"></span>
+                  <span class="flex-1 h-1 rounded-full bg-[color:var(--nd-border)]"></span>
+                  <span class="flex-1 h-1 rounded-full bg-[color:var(--nd-border)]"></span>
+                </div>
+                <p class="text-xs text-[color:var(--nd-text-soft)]" id="strengthLabel">
+                  Use 8+ characters with a mix of letters, numbers &amp; symbols.
+                </p>
+              </div>
+
+              <div>
+                <label class="form-label" for="r-org">Company / Institution <span class="text-[color:var(--nd-text-soft)] font-normal">(optional)</span></label>
+                <input id="r-org" type="text" name="organization" placeholder="University or company" class="form-input" />
+              </div>
+
+              <label class="flex items-start gap-3 text-sm text-[color:var(--nd-text-soft)] cursor-pointer">
+                <input type="checkbox" id="r-terms" required class="mt-1 accent-[color:var(--nd-cyan)]" />
+                <span>
+                  I agree to the NanoDx
+                  <a href="terms.html" class="text-[color:var(--nd-accent)] hover:underline">Terms</a> and
+                  <a href="privacy.html" class="text-[color:var(--nd-accent)] hover:underline">Privacy Policy</a>.
+                </span>
+              </label>
+
+              <p id="regError" class="hidden text-sm text-red-500">
+                <i class="fas fa-exclamation-circle mr-1"></i>
+                <span id="regErrorText">Passwords do not match.</span>
+              </p>
+
+              <button type="submit" id="registerBtn" class="btn-primary w-full py-3.5 rounded-xl font-semibold">
+                <i class="fas fa-user-plus mr-2"></i> Create Account
+              </button>
+
+              <p class="text-center text-sm text-[color:var(--nd-text-soft)]">
+                Already have an account?
+                <a href="login.html" class="text-[color:var(--nd-accent)] hover:underline font-medium">Sign In</a>
+              </p>
+            </form>
+          </div>
+
+          <p class="text-center text-xs text-[color:var(--nd-text-soft)] mt-6">
+            By registering you'll receive product updates. You can unsubscribe anytime.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <!-- <footer class="site-footer">
+    <div class="max-w-7xl mx-auto px-5 py-10">
+      <div class="border-t border-[color:var(--nd-border)] pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[color:var(--nd-text-soft)] text-sm text-center">
+          © <span id="year">2026</span> NanoDx Corp. All rights reserved.
+        </p>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <a href="cookies.html" class="footer-link text-sm">Cookies</a>
+          <a href="intellectual.html" class="footer-link text-sm">Intellectual Property Policy</a>
+          <a href="privacy.html" class="footer-link text-sm">Privacy Policy</a>
+          <a href="terms.html" class="footer-link text-sm">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer> -->
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/+18602086000?text=Hello%20NanoDx%20Corp%2C%20I%20need%20help%20registering%20my%20account."
+     target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
+     class="fixed bottom-6 right-6 z-[100] group">
+    <span class="absolute inset-0 rounded-full bg-nd-cyan opacity-60 animate-ping"></span>
+    <span class="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-nd-ocean to-nd-cyan shadow-2xl shadow-nd-cyan/40 transition-transform duration-300 group-hover:scale-110">
+      <i class="fab fa-whatsapp text-white text-3xl md:text-4xl"></i>
+    </span>
+    <span class="hidden md:block absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[color:var(--nd-surface)] text-[color:var(--nd-text)] text-sm px-3 py-2 rounded-lg border border-[color:var(--nd-border)] opacity-0 group-hover:opacity-100 transition pointer-events-none">
+      Chat with us
+    </span>
+  </a>
+
+  <script src="js/script.js"></script>
+  <script>
+  (function () {
+    "use strict";
+
+    /* --- Show / hide password toggles --- */
+    function bindToggle(btnId, inputId) {
+      var btn = document.getElementById(btnId);
+      var input = document.getElementById(inputId);
+      if (!btn || !input) return;
+      btn.addEventListener("click", function () {
+        var show = input.type === "password";
+        input.type = show ? "text" : "password";
+        btn.querySelector("i").classList.toggle("fa-eye", !show);
+        btn.querySelector("i").classList.toggle("fa-eye-slash", show);
+      });
+    }
+    bindToggle("togglePass1", "r-pass");
+    bindToggle("togglePass2", "r-pass2");
+
+    /* --- Password strength meter --- */
+    var pass = document.getElementById("r-pass");
+    var bars = document.querySelectorAll("#strengthBar span");
+    var label = document.getElementById("strengthLabel");
+
+    var colors = ["#ef4444", "#f97316", "#eab308", "#16B8C4"]; // red, orange, yellow, teal
+    var labels = ["Weak password", "Fair password", "Good password", "Strong password"];
+
+    function scorePassword(v) {
+      var s = 0;
+      if (v.length >= 8) s++;
+      if (/[A-Z]/.test(v) && /[a-z]/.test(v)) s++;
+      if (/\d/.test(v)) s++;
+      if (/[^A-Za-z0-9]/.test(v)) s++;
+      return s;
+    }
+
+    pass.addEventListener("input", function () {
+      var score = scorePassword(pass.value);
+      bars.forEach(function (bar, i) {
+        bar.style.background = i < score ? colors[score - 1] : "var(--nd-border)";
+      });
+      if (!pass.value) {
+        label.textContent = "Use 8+ characters with a mix of letters, numbers & symbols.";
+        label.style.color = "";
+      } else {
+        label.textContent = labels[Math.max(0, score - 1)] || "Very weak password";
+        label.style.color = colors[Math.max(0, score - 1)] || colors[0];
+      }
+    });
+
+    /* --- Form validation + submit --- */
+    var form = document.getElementById("registerForm");
+    var pass2 = document.getElementById("r-pass2");
+    var errBox = document.getElementById("regError");
+    var errText = document.getElementById("regErrorText");
+    var btn = document.getElementById("registerBtn");
+
+    function showError(msg) {
+      errText.textContent = msg;
+      errBox.classList.remove("hidden");
+    }
+    function clearError() { errBox.classList.add("hidden"); }
+
+    pass2.addEventListener("input", clearError);
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      clearError();
+
+      if (pass.value.length < 8) {
+        showError("Password must be at least 8 characters long.");
+        pass.focus();
+        return;
+      }
+      if (pass.value !== pass2.value) {
+        showError("Passwords do not match.");
+        pass2.focus();
+        return;
+      }
+      if (!document.getElementById("r-terms").checked) {
+        showError("Please accept the Terms and Privacy Policy to continue.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Creating Account…';
+
+      // Replace with real backend call:
+      // fetch("/api/auth/register", { method:"POST", body: new FormData(form) })...
+      setTimeout(function () {
+        window.location.href = "dashboard.html";
+      }, 1100);
+    });
+  })();
+  </script>
+</body>
+</html>

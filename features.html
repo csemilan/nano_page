@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NanoDx Corp — Products &amp; Services</title>
+  <link rel="icon" type="image/png" href="logo/icon.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            nd: {
+              navy: '#071B45',
+              ocean: '#075BA5',
+              cyan: '#079DD0',
+              teal: '#16B8C4',
+              charcoal: '#2C3E50'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style/style.css" />
+
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem('nanodx-theme') || 'system';
+        var dark = mode === 'dark' ||
+          (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+
+<body class="antialiased">
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-12 sm:h-14 w-auto object-contain" />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link ">About Us</a>
+        <a href="products.html" class="nav-link ">Products</a>
+        <a href="features.html" class="nav-link active">Services</a>
+        <a href="career.html" class="nav-link">Career</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="btn-outline px-5 py-2 rounded-xl text-sm">Login</a>
+        <a href="register.html" class="btn-primary px-5 py-2 rounded-xl text-sm">Register</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-2 lg:hidden">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+        <button id="mobileMenuBtn" class="text-[color:var(--nd-text)] p-2" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu hidden lg:hidden">
+      <a href="index.html" class="nav-link block">Home</a>
+
+
+      <a href="about.html" class="nav-link block">About Us</a>
+      <a href="products.html" class="nav-link  block">Products</a>
+      <a href="features.html" class="nav-link active block">Services</a>
+      <a href="career.html" class="nav-link block">Career</a>
+      <a href="contact.html" class="nav-link block">Contact</a>
+      <div class="flex flex-col gap-3 pt-2">
+        <a href="login.html" class="btn-outline px-5 py-2.5 rounded-xl text-center">Login</a>
+        <a href="register.html" class="btn-primary px-5 py-2.5 rounded-xl text-center">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN ================= -->
+  <main class="min-h-screen">
+
+    <!-- HERO -->
+    <section class="max-w-7xl mx-auto px-5 py-16 lg:py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="brand-heading text-4xl md:text-6xl font-bold leading-tight">
+          Products &amp; Services
+        </h1>
+        <p class="text-[color:var(--nd-text-soft)] mt-6 text-lg leading-8">
+          NanoDx delivers advanced nanomaterials, reagents, and diagnostic development services
+          designed to support innovation in research, academia, and industry. From surface
+          preparation to full assay development — we help you move from concept to validated product.
+        </p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="max-w-7xl mx-auto px-5 py-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div class="stat-card"><h2 class="stat-value">4+</h2><p class="stat-label">Product Lines</p></div>
+        <div class="stat-card"><h2 class="stat-value">8+</h2><p class="stat-label">Services</p></div>
+        <div class="stat-card"><h2 class="stat-value">50+</h2><p class="stat-label">Custom Projects</p></div>
+        <div class="stat-card"><h2 class="stat-value">100%</h2><p class="stat-label">QC Verified</p></div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="max-w-7xl mx-auto px-5 py-16">
+      <div class="mb-12">
+        <h2 class="brand-heading text-3xl sm:text-4xl font-bold">Product Offerings</h2>
+        <p class="text-[color:var(--nd-text-soft)] mt-3">
+          We specialize in the manufacture and supply of advanced nanomaterials for diagnostics,
+          biosensors, and life-science research.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-atom"></i></div>
+          <h3 class="feature-title">Gold Nanoparticles and Functionalities</h3>
+          <p class="feature-text">
+            High-quality spherical and anisotropic gold nanoparticles with customizable surface
+            chemistries — carboxyl, amine, maleimide, streptavidin, protein A/G, and antibody
+            conjugates. Available in 5–200 nm diameters with tight CV for reproducible assay
+            performance.
+          </p>
+          <ul class="mt-5 space-y-2 text-sm text-[color:var(--nd-text-soft)]">
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>5 – 200 nm sizes</li>
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>Custom optical density &amp; volume</li>
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>Conjugation-ready surfaces</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-flask"></i></div>
+          <h3 class="feature-title">Silica Nanoparticles and Functionalities</h3>
+          <p class="feature-text">
+            Precision-engineered silica nanoparticles with uniform size distribution, low
+            aggregation, and versatile surface chemistry. Ideal for lateral-flow conjugates,
+            fluorescence labels, and biosensor substrates.
+          </p>
+          <ul class="mt-5 space-y-2 text-sm text-[color:var(--nd-text-soft)]">
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>30 – 500 nm diameters</li>
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>Dye-doped and plain options</li>
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>Amine, thiol, carboxyl surfaces</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+          <h3 class="feature-title">Magnetic Particles and Functionalities</h3>
+          <p class="feature-text">
+            Superparamagnetic beads for bioseparation, nucleic-acid extraction, immunoprecipitation,
+            and automated diagnostic workflows. Silica, carboxyl, streptavidin, and protein-coated
+            formats available.
+          </p>
+          <ul class="mt-5 space-y-2 text-sm text-[color:var(--nd-text-soft)]">
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>0.5 – 5 µm bead sizes</li>
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>High magnetic response</li>
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>Low non-specific binding</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-fire"></i></div>
+          <h3 class="feature-title">Fusion Particles and Functionalities</h3>
+          <p class="feature-text">
+            Multi-modal fusion particles that integrate optical, magnetic, and catalytic properties
+            into a single platform — enabling multiplexed detection and simplified workflows in
+            modern point-of-care diagnostics.
+          </p>
+          <ul class="mt-5 space-y-2 text-sm text-[color:var(--nd-text-soft)]">
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>Multimodal detection</li>
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>Custom core-shell designs</li>
+            <li><i class="fas fa-check text-[color:var(--nd-cyan)] mr-2"></i>Scalable synthesis</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="max-w-7xl mx-auto px-5 py-16">
+      <div class="mb-12">
+        <h2 class="brand-heading text-3xl sm:text-4xl font-bold">Service Offerings</h2>
+        <p class="text-[color:var(--nd-text-soft)] mt-3">
+          End-to-end development services — from surface modification to fully validated assays.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-microscope"></i></div>
+          <h3 class="feature-title">Affinity Nano Reagents</h3>
+          <p class="feature-text">Specialized affinity reagents designed to enhance molecular recognition, specificity, and diagnostic accuracy in life-science applications.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-vial"></i></div>
+          <h3 class="feature-title">Immunoassay Development</h3>
+          <p class="feature-text">Complete ELISA, CLIA, and nano-immunoassay development — from antibody pairing and buffer optimization to full analytical validation.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-tint"></i></div>
+          <h3 class="feature-title">Immunochromatographic Assay Development</h3>
+          <p class="feature-text">Rapid lateral-flow assay development for point-of-care systems — including conjugate prep, membrane striping, and reader integration.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+          <h3 class="feature-title">Surface Coatings and Characterization</h3>
+          <p class="feature-text">Advanced surface modification and characterization — SAMs, polymer brushes, and plasma treatments for immunoassays and biosensors.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-dna"></i></div>
+          <h3 class="feature-title">Custom Antibody Development</h3>
+          <p class="feature-text">Tailored polyclonal and monoclonal antibody development against your target, including conjugation and pairing studies.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+          <h3 class="feature-title">Biosensor Prototyping</h3>
+          <p class="feature-text">End-to-end prototyping for electrochemical, optical, and SPR biosensor platforms — from electrode prep to assay integration.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <h3 class="feature-title">Feasibility &amp; Proof of Concept</h3>
+          <p class="feature-text">Rapid feasibility studies that validate your assay concept before committing to full development — saving time and budget.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-file-medical-alt"></i></div>
+          <h3 class="feature-title">Regulatory Support</h3>
+          <p class="feature-text">Documentation, stability studies, and design-history-file support aligned with ISO 13485 and IVDR requirements.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-boxes"></i></div>
+          <h3 class="feature-title">Custom Kitting &amp; Packaging</h3>
+          <p class="feature-text">Bulk reagent supply, lyophilization, custom aliquoting, and private-label packaging for diagnostic kit manufacturers.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section class="max-w-7xl mx-auto px-5 py-16">
+      <div class="text-center mb-12">
+        <h2 class="brand-heading text-3xl sm:text-4xl font-bold">How We Work</h2>
+        <p class="text-[color:var(--nd-text-soft)] mt-3">A clear, milestone-driven process from first call to validated product.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="feature-card text-center">
+          <div class="feature-icon mx-auto"><i class="fas fa-comments"></i></div>
+          <h3 class="feature-title">1. Discovery</h3>
+          <p class="feature-text">We discuss your target, timeline, and performance requirements.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="feature-icon mx-auto"><i class="fas fa-drafting-compass"></i></div>
+          <h3 class="feature-title">2. Design</h3>
+          <p class="feature-text">We propose a technical plan with reagents, methods, and milestones.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="feature-icon mx-auto"><i class="fas fa-vials"></i></div>
+          <h3 class="feature-title">3. Development</h3>
+          <p class="feature-text">Our scientists execute, iterate, and optimize the assay or material.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="feature-icon mx-auto"><i class="fas fa-check-double"></i></div>
+          <h3 class="feature-title">4. Validation</h3>
+          <p class="feature-text">Analytical validation and documentation delivered in a final report.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="max-w-5xl mx-auto px-5 py-20">
+      <div class="cta-band rounded-[35px] p-8 sm:p-12 text-center">
+        <h2 class="text-2xl sm:text-4xl font-bold text-white">Advancing Scientific Innovation</h2>
+        <p class="mt-4 text-cyan-50/90 text-base sm:text-lg">
+          NanoDx is committed to providing cutting-edge nanotechnology solutions, high-quality
+          reagents, and diagnostic expertise to empower scientific discoveries.
+        </p>
+        <a href="contact.html" class="inline-block mt-8 bg-white text-[#075BA5] px-8 py-4 rounded-xl font-semibold hover:scale-105 transition">
+          Talk to Our Team <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="max-w-7xl mx-auto px-5 py-14">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <div class="flex items-center gap-3">
+            <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-14 w-auto object-contain" />
+            <div>
+              <h2 class="wordmark text-xl">NanoDx</h2>
+              <p class="text-sm text-[color:var(--nd-text-soft)]">Diagnostic Solutions</p>
+            </div>
+          </div>
+          <p class="text-[color:var(--nd-text-soft)] mt-5 leading-7">
+            NanoDx Corp provides Reagents, Antibodies, Nanomaterials and Custom Solutions for academic
+            and industry partners worldwide in developing Biosensors and In Vitro Diagnostics.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-title">Quick Links</h3>
+          <div class="flex flex-col gap-3">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="about.html" class="footer-link">About Us</a>
+            <a href="features.html" class="footer-link">Products &amp; Services</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-title">Contact Information</h3>
+          <div class="space-y-3 text-[color:var(--nd-text-soft)]">
+            <p><i class="fas fa-envelope mr-2 text-[color:var(--nd-accent)]"></i>sales@nanodxcorp.com</p>
+            <p><i class="fas fa-phone-alt mr-2 text-[color:var(--nd-accent)]"></i>+1 (941) 504 8508</p>
+            <p><i class="fas fa-map-marker-alt mr-2 text-[color:var(--nd-accent)]"></i>Tampa Bay Area, FL</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-[color:var(--nd-border)] mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[color:var(--nd-text-soft)] text-sm text-center">
+          © <span id="year">2026</span> NanoDx Corp. All rights reserved.
+        </p>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <a href="cookies.html" class="footer-link text-sm">Cookies</a>
+          <a href="intellectual.html" class="footer-link text-sm">Intellectual Property Policy</a>
+          <a href="privacy.html" class="footer-link text-sm">Privacy Policy</a>
+          <a href="terms.html" class="footer-link text-sm">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/+18602086000?text=Hello%20NanoDx%20Corp%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products%20and%20services."
+     target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
+     class="fixed bottom-6 right-6 z-[100] group">
+    <span class="absolute inset-0 rounded-full bg-nd-cyan opacity-60 animate-ping"></span>
+    <span class="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-nd-ocean to-nd-cyan shadow-2xl shadow-nd-cyan/40 transition-transform duration-300 group-hover:scale-110">
+      <i class="fab fa-whatsapp text-white text-3xl md:text-4xl"></i>
+    </span>
+    <span class="hidden md:block absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[color:var(--nd-surface)] text-[color:var(--nd-text)] text-sm px-3 py-2 rounded-lg border border-[color:var(--nd-border)] opacity-0 group-hover:opacity-100 transition pointer-events-none">
+      Chat with us
+    </span>
+  </a>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NanoDx Corp — Terms &amp; Conditions</title>
+  <link rel="icon" type="image/png" href="logo/icon.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { nd: { navy:'#071B45', ocean:'#075BA5', cyan:'#079DD0', teal:'#16B8C4', charcoal:'#2C3E50' } } } }
+    };
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style/style.css" />
+
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem('nanodx-theme') || 'system';
+        var dark = mode === 'dark' ||
+          (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+
+<body class="antialiased">
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-12 sm:h-14 w-auto object-contain" />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="career.html" class="nav-link">Career</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="btn-outline px-5 py-2 rounded-xl text-sm">Login</a>
+        <a href="register.html" class="btn-primary px-5 py-2 rounded-xl text-sm">Register</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-2 lg:hidden">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+        <button id="mobileMenuBtn" class="text-[color:var(--nd-text)] p-2" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu hidden lg:hidden">
+      <a href="index.html" class="nav-link block">Home</a>
+      <a href="features.html" class="nav-link block">Features</a>
+      <a href="about.html" class="nav-link block">About Us</a>
+      <a href="career.html" class="nav-link block">Career</a>
+      <a href="contact.html" class="nav-link block">Contact</a>
+      <div class="flex flex-col gap-3 pt-2">
+        <a href="login.html" class="btn-outline px-5 py-2.5 rounded-xl text-center">Login</a>
+        <a href="register.html" class="btn-primary px-5 py-2.5 rounded-xl text-center">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN ================= -->
+  <main class="min-h-screen">
+
+    <!-- HERO -->
+    <section class="max-w-5xl mx-auto px-5 pt-16 pb-8">
+      <nav class="text-sm text-[color:var(--nd-text-soft)] mb-6" aria-label="Breadcrumb">
+        <a href="index.html" class="hover:text-[color:var(--nd-accent)] transition">Home</a>
+        <i class="fas fa-chevron-right mx-2 text-xs opacity-60"></i>
+        <span class="text-[color:var(--nd-text)]">Terms &amp; Conditions</span>
+      </nav>
+
+      <h1 class="brand-heading text-4xl md:text-5xl font-bold leading-tight">
+        Terms &amp; Conditions
+      </h1>
+      <p class="text-[color:var(--nd-text-soft)] mt-4 text-sm">
+        <strong class="text-[color:var(--nd-text)]">Effective Date:</strong> January 1, 2026 ·
+        <strong class="text-[color:var(--nd-text)]">Last Updated:</strong> January 15, 2026
+      </p>
+    </section>
+
+    <!-- LAYOUT: TOC + CONTENT -->
+    <section class="max-w-7xl mx-auto px-5 pb-20">
+      <div class="grid lg:grid-cols-[260px_1fr] gap-10">
+
+        <!-- TOC -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-24 bg-[color:var(--nd-surface)] border border-[color:var(--nd-border)] rounded-2xl p-5">
+            <h2 class="section-heading font-bold text-sm uppercase tracking-wider mb-4">Contents</h2>
+            <nav class="flex flex-col gap-2 text-sm">
+              <a href="#s1" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">1. Acceptance of Terms</a>
+              <a href="#s2" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">2. Use of Website</a>
+              <a href="#s3" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">3. Accounts &amp; Security</a>
+              <a href="#s4" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">4. Orders &amp; Payment</a>
+              <a href="#s5" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">5. Shipping &amp; Delivery</a>
+              <a href="#s6" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">6. Returns &amp; Refunds</a>
+              <a href="#s7" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">7. Product Use Restrictions</a>
+              <a href="#s8" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">8. Intellectual Property</a>
+              <a href="#s9" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">9. Third-Party Links</a>
+              <a href="#s10" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">10. Warranty Disclaimer</a>
+              <a href="#s11" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">11. Limitation of Liability</a>
+              <a href="#s12" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">12. Indemnification</a>
+              <a href="#s13" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">13. Governing Law</a>
+              <a href="#s14" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">14. Changes to Terms</a>
+              <a href="#s15" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition">15. Contact</a>
+            </nav>
+          </div>
+        </aside>
+
+        <!-- CONTENT -->
+        <div class="space-y-10 text-[color:var(--nd-text-soft)] leading-8">
+
+          <div class="bg-[color:var(--nd-surface)] border border-[color:var(--nd-border)] rounded-2xl p-6 sm:p-8">
+            <p class="text-sm">
+              <i class="fas fa-info-circle text-[color:var(--nd-cyan)] mr-2"></i>
+              These Terms &amp; Conditions ("Terms") govern your access to and use of the website,
+              products, and services offered by <strong class="text-[color:var(--nd-text)]">NanoDx Corp</strong>
+              ("NanoDx", "we", "us"). Please read them carefully.
+            </p>
+          </div>
+
+          <section id="s1">
+            <h2 class="section-heading text-2xl font-bold mb-4">1. Acceptance of Terms</h2>
+            <p>By accessing or using our website at <strong class="text-[color:var(--nd-text)]">nanodxcorp.com</strong>, placing an order, or otherwise engaging with NanoDx, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree, you must not use our website or services.</p>
+            <p class="mt-4">You represent that you are at least 18 years of age and have the legal authority to enter into this agreement. If you are using our services on behalf of an organization, you represent that you have authority to bind that organization to these Terms.</p>
+          </section>
+
+          <section id="s2">
+            <h2 class="section-heading text-2xl font-bold mb-4">2. Use of Website</h2>
+            <p>You agree to use our website only for lawful purposes and in a manner that does not infringe the rights of, or restrict or inhibit the use and enjoyment of, this site by any third party. Prohibited behavior includes:</p>
+            <ul class="list-disc pl-6 mt-4 space-y-2">
+              <li>Attempting to gain unauthorized access to any part of the site, servers, or databases</li>
+              <li>Introducing viruses, trojans, worms, or other malicious code</li>
+              <li>Scraping, crawling, or harvesting content without written permission</li>
+              <li>Reproducing, duplicating, copying, or reselling any portion of the site</li>
+              <li>Using the site to transmit unsolicited commercial communications</li>
+              <li>Impersonating NanoDx, its employees, or other users</li>
+            </ul>
+            <p class="mt-4">We reserve the right to suspend or terminate access to any user who violates these rules.</p>
+          </section>
+
+          <section id="s3">
+            <h2 class="section-heading text-2xl font-bold mb-4">3. Accounts &amp; Security</h2>
+            <p>To access certain features — including ordering, technical documentation, and account dashboards — you may be required to register an account. You agree to:</p>
+            <ul class="list-disc pl-6 mt-4 space-y-2">
+              <li>Provide accurate, current, and complete information during registration</li>
+              <li>Maintain and promptly update your account information</li>
+              <li>Keep your password confidential and not share it with anyone</li>
+              <li>Notify us immediately of any unauthorized use of your account</li>
+            </ul>
+            <p class="mt-4">You are responsible for all activity that occurs under your account. NanoDx is not liable for any loss arising from your failure to safeguard your credentials.</p>
+          </section>
+
+          <section id="s4">
+            <h2 class="section-heading text-2xl font-bold mb-4">4. Orders &amp; Payment</h2>
+            <p>All orders placed through our website are subject to acceptance and availability. We reserve the right to refuse or cancel any order for reasons including but not limited to:</p>
+            <ul class="list-disc pl-6 mt-4 space-y-2">
+              <li>Product unavailability or pricing errors</li>
+              <li>Suspected fraud or unauthorized transactions</li>
+              <li>Export control or regulatory restrictions</li>
+              <li>Failure to meet our minimum order requirements</li>
+            </ul>
+            <p class="mt-4">Prices are listed in <strong class="text-[color:var(--nd-text)]">US Dollars (USD)</strong> and exclude applicable taxes, duties, and shipping unless otherwise stated. Payment must be received in full before shipment. We accept major credit cards, wire transfers, and approved institutional purchase orders.</p>
+          </section>
+
+          <section id="s5">
+            <h2 class="section-heading text-2xl font-bold mb-4">5. Shipping &amp; Delivery</h2>
+            <p>NanoDx ships worldwide from our facility in Bradenton, Florida. Shipping times are estimates and not guarantees. Title and risk of loss pass to you upon delivery to the carrier.</p>
+            <p class="mt-4">Certain products — including biological reagents and nanomaterials — may require cold-chain shipping, specialized packaging, or import permits. You are responsible for ensuring compliance with all import regulations in your jurisdiction.</p>
+          </section>
+
+          <section id="s6">
+            <h2 class="section-heading text-2xl font-bold mb-4">6. Returns &amp; Refunds</h2>
+            <p>Because our products are used in sensitive research applications, we cannot accept returns of opened or thawed items. Unopened catalog products may be returned within <strong class="text-[color:var(--nd-text)]">14 days</strong> of receipt, subject to a 20% restocking fee and prior authorization.</p>
+            <p class="mt-4">Custom-synthesized materials, conjugated products, and assay-development services are <strong class="text-[color:var(--nd-text)]">non-refundable</strong>. If a product is defective or does not meet its published specification, contact us within 7 days of receipt and we will replace it or issue a credit at our discretion.</p>
+          </section>
+
+          <section id="s7">
+            <h2 class="section-heading text-2xl font-bold mb-4">7. Product Use Restrictions</h2>
+            <p><strong class="text-[color:var(--nd-text)]">Research Use Only.</strong> Unless explicitly stated otherwise on the product label or datasheet, all NanoDx products are sold for <strong class="text-[color:var(--nd-text)]">research and further manufacturing use only</strong>. They are <em>not</em> intended for direct human or animal therapeutic, diagnostic, or household use without appropriate regulatory clearances.</p>
+            <p class="mt-4">The purchaser is solely responsible for:</p>
+            <ul class="list-disc pl-6 mt-4 space-y-2">
+              <li>Complying with all applicable laws and regulations (FDA, EMA, IVDR, CLIA, etc.)</li>
+              <li>Obtaining any necessary licenses, permits, or approvals</li>
+              <li>Performing their own validation studies for their intended application</li>
+              <li>Safe handling, storage, and disposal of products</li>
+            </ul>
+          </section>
+
+          <section id="s8">
+            <h2 class="section-heading text-2xl font-bold mb-4">8. Intellectual Property</h2>
+            <p>All content on this website — including text, graphics, logos, images, product names, documentation, and software — is the property of NanoDx Corp or its licensors and is protected by United States and international copyright, trademark, and trade secret laws. See our <a href="intellectual.html" class="text-[color:var(--nd-accent)] hover:underline">Intellectual Property Policy</a> for full details.</p>
+          </section>
+
+          <section id="s9">
+            <h2 class="section-heading text-2xl font-bold mb-4">9. Third-Party Links</h2>
+            <p>Our website may contain links to third-party sites. These links are provided for convenience only. NanoDx does not endorse, control, or assume responsibility for the content, privacy practices, or accuracy of any third-party site. Accessing third-party sites is at your own risk.</p>
+          </section>
+
+          <section id="s10">
+            <h2 class="section-heading text-2xl font-bold mb-4">10. Warranty Disclaimer</h2>
+            <p class="uppercase text-xs tracking-wide bg-[color:var(--nd-surface-2)] border border-[color:var(--nd-border)] rounded-xl p-4 text-[color:var(--nd-text-soft)]">
+              Except as expressly stated in writing, all products and services are provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement. NanoDx does not warrant that the website will be uninterrupted, error-free, or free of viruses.
+            </p>
+          </section>
+
+          <section id="s11">
+            <h2 class="section-heading text-2xl font-bold mb-4">11. Limitation of Liability</h2>
+            <p>To the fullest extent permitted by law, NanoDx Corp shall not be liable for any indirect, incidental, special, consequential, or punitive damages — including lost profits, lost data, or business interruption — arising out of or related to your use of our website, products, or services.</p>
+            <p class="mt-4">Our total aggregate liability for any claim shall not exceed the amount you paid to NanoDx for the specific product or service giving rise to the claim, or <strong class="text-[color:var(--nd-text)]">USD $1,000</strong>, whichever is greater.</p>
+          </section>
+
+          <section id="s12">
+            <h2 class="section-heading text-2xl font-bold mb-4">12. Indemnification</h2>
+            <p>You agree to indemnify, defend, and hold harmless NanoDx Corp, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including reasonable attorneys' fees) arising out of:</p>
+            <ul class="list-disc pl-6 mt-4 space-y-2">
+              <li>Your violation of these Terms</li>
+              <li>Your misuse of NanoDx products or services</li>
+              <li>Your violation of any third-party rights, including intellectual property rights</li>
+              <li>Your violation of any applicable laws or regulations</li>
+            </ul>
+          </section>
+
+          <section id="s13">
+            <h2 class="section-heading text-2xl font-bold mb-4">13. Governing Law &amp; Dispute Resolution</h2>
+            <p>These Terms shall be governed by and construed in accordance with the laws of the <strong class="text-[color:var(--nd-text)]">State of Florida, United States</strong>, without regard to its conflict-of-law principles.</p>
+            <p class="mt-4">Any dispute arising under these Terms shall be resolved through good-faith negotiation first. If unresolved, disputes shall be subject to the exclusive jurisdiction of the state and federal courts located in Manatee County, Florida.</p>
+          </section>
+
+          <section id="s14">
+            <h2 class="section-heading text-2xl font-bold mb-4">14. Changes to Terms</h2>
+            <p>We may update these Terms from time to time. When we do, we will revise the "Last Updated" date at the top of this page. Material changes will be communicated via email or a prominent notice on our website. Your continued use of our services after changes constitutes acceptance of the revised Terms.</p>
+          </section>
+
+          <section id="s15">
+            <h2 class="section-heading text-2xl font-bold mb-4">15. Contact</h2>
+            <p>Questions about these Terms? Reach out to us:</p>
+            <div class="mt-4 bg-[color:var(--nd-surface)] border border-[color:var(--nd-border)] rounded-2xl p-6 space-y-3">
+              <p><i class="fas fa-building mr-2 text-[color:var(--nd-accent)]"></i><strong class="text-[color:var(--nd-text)]">NanoDx Corp</strong></p>
+              <p><i class="fas fa-map-marker-alt mr-2 text-[color:var(--nd-accent)]"></i>Bradenton, FL · Tampa Bay Area, USA</p>
+              <p><i class="fas fa-envelope mr-2 text-[color:var(--nd-accent)]"></i><a href="mailto:legal@nanodxcorp.com" class="hover:underline">legal@nanodxcorp.com</a></p>
+              <p><i class="fas fa-phone-alt mr-2 text-[color:var(--nd-accent)]"></i>+1 (941) 504 8508</p>
+            </div>
+          </section>
+
+          <!-- Related -->
+          <div class="pt-6 border-t border-[color:var(--nd-border)]">
+            <p class="text-sm mb-4">Related policies:</p>
+            <div class="flex flex-wrap gap-3">
+              <a href="privacy.html" class="btn-outline px-5 py-2 rounded-xl text-sm">Privacy Policy</a>
+              <a href="cookies.html" class="btn-outline px-5 py-2 rounded-xl text-sm">Cookie Policy</a>
+              <a href="intellectual.html" class="btn-outline px-5 py-2 rounded-xl text-sm">IP Policy</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="max-w-7xl mx-auto px-5 py-14">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <div class="flex items-center gap-3">
+            <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-14 w-auto object-contain" />
+            <div>
+              <h2 class="wordmark text-xl">NanoDx</h2>
+              <p class="text-sm text-[color:var(--nd-text-soft)]">Diagnostic Solutions</p>
+            </div>
+          </div>
+          <p class="text-[color:var(--nd-text-soft)] mt-5 leading-7">
+            NanoDx Corp provides Reagents, Antibodies, Nanomaterials and Custom Solutions for academic
+            and industry partners worldwide in developing Biosensors and In Vitro Diagnostics.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-title">Quick Links</h3>
+          <div class="flex flex-col gap-3">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="about.html" class="footer-link">About Us</a>
+            <a href="features.html" class="footer-link">Products &amp; Services</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-title">Contact Information</h3>
+          <div class="space-y-3 text-[color:var(--nd-text-soft)]">
+            <p><i class="fas fa-envelope mr-2 text-[color:var(--nd-accent)]"></i>sales@nanodxcorp.com</p>
+            <p><i class="fas fa-phone-alt mr-2 text-[color:var(--nd-accent)]"></i>+1 (941) 504 8508</p>
+            <p><i class="fas fa-map-marker-alt mr-2 text-[color:var(--nd-accent)]"></i>Tampa Bay Area, FL</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-[color:var(--nd-border)] mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[color:var(--nd-text-soft)] text-sm text-center">
+          © <span id="year">2026</span> NanoDx Corp. All rights reserved.
+        </p>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <a href="cookies.html" class="footer-link text-sm">Cookies</a>
+          <a href="intellectual.html" class="footer-link text-sm">Intellectual Property Policy</a>
+          <a href="privacy.html" class="footer-link text-sm">Privacy Policy</a>
+          <a href="terms.html" class="footer-link text-sm">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/+18602086000?text=Hello%20NanoDx%20Corp%2C%20I%20have%20a%20question%20about%20your%20terms."
+     target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
+     class="fixed bottom-6 right-6 z-[100] group">
+    <span class="absolute inset-0 rounded-full bg-nd-cyan opacity-60 animate-ping"></span>
+    <span class="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-nd-ocean to-nd-cyan shadow-2xl shadow-nd-cyan/40 transition-transform duration-300 group-hover:scale-110">
+      <i class="fab fa-whatsapp text-white text-3xl md:text-4xl"></i>
+    </span>
+    <span class="hidden md:block absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[color:var(--nd-surface)] text-[color:var(--nd-text)] text-sm px-3 py-2 rounded-lg border border-[color:var(--nd-border)] opacity-0 group-hover:opacity-100 transition pointer-events-none">
+      Chat with us
+    </span>
+  </a>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NanoDx Corp — Products Catalog</title>
+  <link rel="icon" type="image/png" href="logo/icon.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            nd: {
+              navy: '#071B45',
+              ocean: '#075BA5',
+              cyan: '#079DD0',
+              teal: '#16B8C4',
+              charcoal: '#2C3E50'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style/style.css" />
+
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem('nanodx-theme') || 'system';
+        var dark = mode === 'dark' ||
+          (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    })();
+  </script>
+
+  <style>
+    /* ---------- Product-specific styles ---------- */
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 1px solid var(--nd-border);
+      background: var(--nd-surface);
+      color: var(--nd-text-soft);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+    }
+    .filter-pill:hover { border-color: var(--nd-cyan); color: var(--nd-accent); }
+    .filter-pill.active {
+      background: linear-gradient(135deg, #075BA5 0%, #079DD0 100%);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 6px 16px -6px rgba(7, 157, 208, 0.6);
+    }
+    .filter-pill .count {
+      font-size: 0.7rem; padding: 0.1rem 0.45rem; border-radius: 999px;
+      background: rgba(255,255,255,0.2); opacity: 0.85;
+    }
+    .filter-pill:not(.active) .count { background: var(--nd-accent-soft); color: var(--nd-accent); }
+
+    .product-card {
+      background: var(--nd-surface);
+      border: 1px solid var(--nd-border);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--nd-cyan);
+      box-shadow: 0 22px 44px -20px rgba(7, 91, 165, 0.5);
+    }
+    .product-image {
+      position: relative;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      background: linear-gradient(135deg, #071B45 0%, #075BA5 50%, #079DD0 100%);
+    }
+    .product-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+      display: block;
+    }
+    .product-card:hover .product-image img { transform: scale(1.08); }
+
+    /* Gradient overlay for image readability */
+    .product-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(7, 27, 69, 0.05) 0%,
+        rgba(7, 27, 69, 0.15) 60%,
+        rgba(7, 27, 69, 0.45) 100%);
+      pointer-events: none;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 0.9rem; left: 0.9rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      backdrop-filter: blur(8px);
+      color: #fff;
+      background: rgba(7, 27, 69, 0.65);
+      border: 1px solid rgba(255,255,255,0.15);
+      z-index: 2;
+    }
+    .product-badge.new { background: rgba(22, 184, 196, 0.9); }
+    .product-badge.sale { background: rgba(239, 68, 68, 0.9); }
+    .product-badge.service { background: rgba(7, 91, 165, 0.9); }
+
+    /* Category icon over image */
+    .product-cat-icon {
+      position: absolute;
+      bottom: 0.9rem; right: 0.9rem;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 1rem;
+      z-index: 2;
+    }
+
+    .spec-chip {
+      display: inline-flex; align-items: center;
+      font-size: 0.7rem; padding: 0.25rem 0.6rem;
+      border-radius: 8px; background: var(--nd-surface-2);
+      border: 1px solid var(--nd-border);
+      color: var(--nd-text-soft);
+    }
+
+    /* Buy modal */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(3, 8, 18, 0.7);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-backdrop.show { opacity: 1; pointer-events: auto; }
+    .modal-card {
+      background: var(--nd-surface);
+      border: 1px solid var(--nd-border);
+      border-radius: 28px;
+      width: 100%; max-width: 480px; max-height: 92vh;
+      overflow-y: auto;
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 40px 80px -30px rgba(7, 27, 69, 0.7);
+    }
+    .modal-backdrop.show .modal-card { transform: translateY(0) scale(1); }
+
+    .order-option {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.1rem; border-radius: 16px;
+      border: 1.5px solid var(--nd-border);
+      background: var(--nd-surface);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .order-option:hover {
+      border-color: var(--nd-cyan);
+      background: var(--nd-surface-2);
+      transform: translateX(3px);
+    }
+    .order-option .opt-icon {
+      width: 46px; height: 46px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 1.15rem;
+    }
+    .order-option.whatsapp .opt-icon { background: rgba(37, 211, 102, 0.15); color: #25D366; }
+    .order-option.email .opt-icon { background: var(--nd-accent-soft); color: var(--nd-accent); }
+    .order-option.call .opt-icon { background: rgba(22, 184, 196, 0.15); color: var(--nd-teal); }
+
+    .qty-btn {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; border: 1px solid var(--nd-border);
+      background: var(--nd-surface-2); color: var(--nd-text);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .qty-btn:hover { border-color: var(--nd-cyan); color: var(--nd-accent); }
+
+    .toast {
+      position: fixed; bottom: 6rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--nd-navy); color: #fff;
+      padding: 0.75rem 1.25rem; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.875rem;
+      box-shadow: 0 20px 40px -12px rgba(7, 27, 69, 0.6);
+      opacity: 0; pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 300; max-width: calc(100vw - 2rem);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast i { color: var(--nd-teal); margin-right: 0.5rem; }
+
+    .empty-state { text-align: center; padding: 4rem 1rem; color: var(--nd-text-soft); }
+    .empty-state i { font-size: 3rem; color: var(--nd-accent); opacity: 0.4; margin-bottom: 1rem; }
+
+    .filter-bar {
+      position: sticky; top: 78px; z-index: 30;
+      padding: 1rem 0;
+      background: color-mix(in srgb, var(--nd-bg) 92%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--nd-border);
+    }
+    @media (max-width: 1023px) { .filter-bar { top: 70px; } }
+
+    /* Image loading shimmer */
+    .product-image img[data-loading="true"] { opacity: 0; }
+    .product-image img {
+      opacity: 1;
+      transition: opacity 0.4s ease, transform 0.6s ease;
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-12 sm:h-14 w-auto object-contain" />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link ">About Us</a>
+        <a href="products.html" class="nav-link active">Products</a>
+        <a href="features.html" class="nav-link">Services</a>
+        <a href="career.html" class="nav-link">Career</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="btn-outline px-5 py-2 rounded-xl text-sm">Login</a>
+        <a href="register.html" class="btn-primary px-5 py-2 rounded-xl text-sm">Register</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-2 lg:hidden">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Theme">
+          <i class="fas fa-sun" data-theme-icon></i>
+        </button>
+        <button id="mobileMenuBtn" class="text-[color:var(--nd-text)] p-2" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu hidden lg:hidden">
+      <a href="index.html" class="nav-link block">Home</a>
+      <a href="about.html" class="nav-link block">About Us</a>
+      <a href="products.html" class="nav-link active block">Products</a>
+      <a href="features.html" class="nav-link block">Services</a>
+      <a href="career.html" class="nav-link block">Career</a>
+      <a href="contact.html" class="nav-link block">Contact</a>
+      <div class="flex flex-col gap-3 pt-2">
+        <a href="login.html" class="btn-outline px-5 py-2.5 rounded-xl text-center">Login</a>
+        <a href="register.html" class="btn-primary px-5 py-2.5 rounded-xl text-center">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN ================= -->
+  <main class="min-h-screen">
+
+    <!-- HERO -->
+    <section class="max-w-7xl mx-auto px-5 pt-14 pb-6">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="brand-heading text-4xl md:text-6xl font-bold mt-6 leading-tight">
+          Explore Our Nanomaterials &amp; Reagents
+        </h1>
+        <p class="text-[color:var(--nd-text-soft)] mt-6 text-lg leading-8">
+          Browse by category, filter by application, and order directly via WhatsApp or Email —
+          pre-filled with your selection.
+        </p>
+      </div>
+    </section>
+
+    <!-- SEARCH + FILTER BAR -->
+    <section class="filter-bar">
+      <div class="max-w-7xl mx-auto px-5">
+        <div class="flex flex-col sm:flex-row gap-3 mb-4">
+          <div class="relative flex-1">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] pointer-events-none"></i>
+            <input id="searchInput" type="text" placeholder="Search products, sizes, applications…"
+                   class="form-input pl-11" autocomplete="off" />
+            <button id="clearSearch" type="button"
+                    class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition"
+                    aria-label="Clear search">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="flex items-center gap-2">
+            <label for="sortSelect" class="text-sm text-[color:var(--nd-text-soft)] whitespace-nowrap hidden sm:inline">Sort:</label>
+            <select id="sortSelect" class="form-input !py-2.5 !w-auto">
+              <option value="featured">Featured</option>
+              <option value="name-asc">Name (A–Z)</option>
+              <option value="name-desc">Name (Z–A)</option>
+              <option value="price-asc">Price (Low → High)</option>
+              <option value="price-desc">Price (High → Low)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1" id="categoryFilters" role="tablist" aria-label="Product categories"></div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="max-w-7xl mx-auto px-5 pt-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <p class="text-sm text-[color:var(--nd-text-soft)]">
+          Showing <strong id="resultCount" class="text-[color:var(--nd-text)]">0</strong> products
+          <span id="activeFilterLabel" class="hidden">
+            in <strong id="activeFilterName" class="text-[color:var(--nd-accent)]"></strong>
+          </span>
+        </p>
+        <button id="resetFilters" class="text-sm text-[color:var(--nd-accent)] hover:underline hidden">
+          <i class="fas fa-redo mr-1"></i> Reset filters
+        </button>
+      </div>
+
+      <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20"></div>
+
+      <div id="emptyState" class="empty-state hidden">
+        <i class="fas fa-flask"></i>
+        <h3 class="section-heading text-xl font-bold mb-2">No products found</h3>
+        <p class="text-sm">Try adjusting your search or filter, or <a href="contact.html" class="text-[color:var(--nd-accent)] hover:underline">contact us</a> for a custom quote.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="max-w-5xl mx-auto px-5 py-16">
+      <div class="cta-band rounded-[35px] p-8 sm:p-12 text-center">
+        <h2 class="text-2xl sm:text-4xl font-bold text-white">Need a Custom Batch?</h2>
+        <p class="mt-4 text-cyan-50/90 text-base sm:text-lg">
+          We synthesize custom sizes, concentrations, and surface chemistries to your specification.
+        </p>
+        <a href="contact.html" class="inline-block mt-8 bg-white text-[#075BA5] px-8 py-4 rounded-xl font-semibold hover:scale-105 transition">
+          Request a Quote <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= BUY MODAL ================= -->
+  <div id="buyModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="buyModalTitle">
+    <div class="modal-card" role="document">
+      <div class="flex items-start justify-between p-6 border-b border-[color:var(--nd-border)]">
+        <div>
+          <h2 id="buyModalTitle" class="section-heading text-xl font-bold">Complete Your Order</h2>
+          <p class="text-xs text-[color:var(--nd-text-soft)] mt-1">Choose how you'd like to send your request</p>
+        </div>
+        <button id="closeModal" class="text-[color:var(--nd-text-soft)] hover:text-[color:var(--nd-accent)] transition p-1" aria-label="Close dialog">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 border-b border-[color:var(--nd-border)]">
+        <div class="flex gap-4">
+          <img id="modalProductImage" src="" alt="" class="w-20 h-20 rounded-2xl object-cover border border-[color:var(--nd-border)] flex-shrink-0" />
+          <div class="min-w-0 flex-1">
+            <span id="modalProductCategory" class="text-xs font-semibold uppercase tracking-wider text-[color:var(--nd-accent)]"></span>
+            <h3 id="modalProductName" class="section-heading font-bold text-base leading-tight mt-0.5"></h3>
+            <p id="modalProductSpec" class="text-xs text-[color:var(--nd-text-soft)] mt-1"></p>
+            <p id="modalProductPrice" class="text-sm font-bold text-[color:var(--nd-cyan)] mt-2"></p>
+          </div>
+        </div>
+
+        <div class="mt-5 flex items-center justify-between">
+          <label class="text-sm font-medium text-[color:var(--nd-text)]">Quantity</label>
+          <div class="flex items-center gap-2">
+            <button type="button" class="qty-btn" id="qtyMinus" aria-label="Decrease quantity"><i class="fas fa-minus text-xs"></i></button>
+            <input id="qtyInput" type="number" min="1" max="999" value="1"
+                   class="w-16 text-center py-2 rounded-xl border border-[color:var(--nd-border)] bg-[color:var(--nd-surface-2)] text-[color:var(--nd-text)] font-semibold" />
+            <button type="button" class="qty-btn" id="qtyPlus" aria-label="Increase quantity"><i class="fas fa-plus text-xs"></i></button>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <label for="orderNote" class="text-sm font-medium text-[color:var(--nd-text)] block mb-2">
+            Note <span class="text-[color:var(--nd-text-soft)] font-normal">(optional)</span>
+          </label>
+          <textarea id="orderNote" rows="2" placeholder="e.g. Ship to lab address, need CoA, custom buffer…"
+                    class="form-input text-sm"></textarea>
+        </div>
+      </div>
+
+      <div class="p-6 space-y-3">
+        <a id="orderWhatsApp" href="#" target="_blank" rel="noopener" class="order-option whatsapp">
+          <div class="opt-icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-[color:var(--nd-text)] text-sm">Order via WhatsApp</p>
+            <p class="text-xs text-[color:var(--nd-text-soft)] truncate">Instant reply · +1 (860) 208-6000</p>
+          </div>
+          <i class="fas fa-chevron-right text-[color:var(--nd-text-soft)] text-xs"></i>
+        </a>
+
+        <a id="orderEmail" href="#" class="order-option email">
+          <div class="opt-icon"><i class="fas fa-envelope"></i></div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-[color:var(--nd-text)] text-sm">Order via Email</p>
+            <p class="text-xs text-[color:var(--nd-text-soft)] truncate">sales@nanodxcorp.com</p>
+          </div>
+          <i class="fas fa-chevron-right text-[color:var(--nd-text-soft)] text-xs"></i>
+        </a>
+
+        <a id="orderPhone" href="#" class="order-option call">
+          <div class="opt-icon"><i class="fas fa-phone-alt"></i></div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-[color:var(--nd-text)] text-sm">Call Sales</p>
+            <p class="text-xs text-[color:var(--nd-text-soft)] truncate">Mon–Fri, 9 AM – 6 PM EST</p>
+          </div>
+          <i class="fas fa-chevron-right text-[color:var(--nd-text-soft)] text-xs"></i>
+        </a>
+
+        <button type="button" id="copyOrderBtn" class="btn-outline w-full py-3 rounded-xl font-medium text-sm">
+          <i class="fas fa-copy mr-2"></i> Copy Order Details
+        </button>
+      </div>
+
+      <div class="px-6 pb-6">
+        <p class="text-xs text-[color:var(--nd-text-soft)] text-center leading-5">
+          <i class="fas fa-info-circle mr-1 text-[color:var(--nd-accent)]"></i>
+          This is a request — our sales team will confirm pricing, availability, and shipping before any charge.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i><span id="toastMsg">Copied to clipboard</span>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="max-w-7xl mx-auto px-5 py-14">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <div class="flex items-center gap-3">
+            <img src="logo/icon.png" alt="NanoDx Corp" class="logo-auto-blend h-14 w-auto object-contain" />
+            <div>
+              <h2 class="wordmark text-xl">NanoDx</h2>
+              <p class="text-sm text-[color:var(--nd-text-soft)]">Diagnostic Solutions</p>
+            </div>
+          </div>
+          <p class="text-[color:var(--nd-text-soft)] mt-5 leading-7">
+            NanoDx Corp provides Reagents, Antibodies, Nanomaterials and Custom Solutions for academic
+            and industry partners worldwide in developing Biosensors and In Vitro Diagnostics.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-title">Quick Links</h3>
+          <div class="flex flex-col gap-3">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="products.html" class="footer-link">Products</a>
+            <a href="about.html" class="footer-link">About Us</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-title">Contact Information</h3>
+          <div class="space-y-3 text-[color:var(--nd-text-soft)]">
+            <p><i class="fas fa-envelope mr-2 text-[color:var(--nd-accent)]"></i>sales@nanodxcorp.com</p>
+            <p><i class="fas fa-phone-alt mr-2 text-[color:var(--nd-accent)]"></i>+1 (941) 504 8508</p>
+            <p><i class="fas fa-map-marker-alt mr-2 text-[color:var(--nd-accent)]"></i>Tampa Bay Area, FL</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-[color:var(--nd-border)] mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[color:var(--nd-text-soft)] text-sm text-center">
+          © <span id="year">2026</span> NanoDx Corp. All rights reserved.
+        </p>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <a href="cookies.html" class="footer-link text-sm">Cookies</a>
+          <a href="intellectual.html" class="footer-link text-sm">Intellectual Property Policy</a>
+          <a href="privacy.html" class="footer-link text-sm">Privacy Policy</a>
+          <a href="terms.html" class="footer-link text-sm">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/+18602086000?text=Hello%20NanoDx%20Corp%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products%20and%20services."
+     target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
+     class="fixed bottom-6 right-6 z-[100] group">
+    <span class="absolute inset-0 rounded-full bg-nd-cyan opacity-60 animate-ping"></span>
+    <span class="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-nd-ocean to-nd-cyan shadow-2xl shadow-nd-cyan/40 transition-transform duration-300 group-hover:scale-110">
+      <i class="fab fa-whatsapp text-white text-3xl md:text-4xl"></i>
+    </span>
+    <span class="hidden md:block absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[color:var(--nd-surface)] text-[color:var(--nd-text)] text-sm px-3 py-2 rounded-lg border border-[color:var(--nd-border)] opacity-0 group-hover:opacity-100 transition pointer-events-none">
+      Chat with us
+    </span>
+  </a>
+
+  <script src="js/script.js"></script>
+
+  <!-- ================= PRODUCTS SCRIPT ================= -->
+  <script>
+  (function () {
+    "use strict";
+
+    /* ============================================================
+       PRODUCT DATA (with real images from Unsplash)
+       ============================================================ */
+    const PRODUCTS = [
+
+      /* ---------- Gold Nanoparticles ---------- */
+      {
+        id: "au-5",
+        name: "Gold Nanoparticles — 5 nm",
+        category: "gold",
+        image: "https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?w=800&q=80",
+        spec: "5 nm · 0.05 mg/mL · citrate-capped",
+        price: 145,
+        badge: null,
+        tags: ["gold", "citrate", "5nm", "nanoparticle"]
+      },
+      {
+        id: "au-20",
+        name: "Gold Nanoparticles — 20 nm",
+        category: "gold",
+        image: "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=800&q=80",
+        spec: "20 nm · 0.05 mg/mL · citrate-capped",
+        price: 165,
+        badge: "Popular",
+        tags: ["gold", "citrate", "20nm", "nanoparticle"]
+      },
+      {
+        id: "au-40",
+        name: "Gold Nanoparticles — 40 nm",
+        category: "gold",
+        image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&q=80",
+        spec: "40 nm · 0.05 mg/mL · citrate-capped",
+        price: 185,
+        badge: null,
+        tags: ["gold", "citrate", "40nm", "nanoparticle"]
+      },
+      {
+        id: "au-100",
+        name: "Gold Nanoparticles — 100 nm",
+        category: "gold",
+        image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?w=800&q=80",
+        spec: "100 nm · 0.05 mg/mL · citrate-capped",
+        price: 225,
+        badge: null,
+        tags: ["gold", "citrate", "100nm", "nanoparticle"]
+      },
+      {
+        id: "au-sa",
+        name: "Streptavidin-Conjugated Gold",
+        category: "gold",
+        image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80",
+        spec: "40 nm · streptavidin-conjugated · 1 mL",
+        price: 320,
+        badge: "New",
+        tags: ["gold", "streptavidin", "conjugate", "biotin"]
+      },
+      {
+        id: "au-pa",
+        name: "Protein A Gold Conjugate",
+        category: "gold",
+        image: "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=800&q=80",
+        spec: "20 nm · Protein A · 1 mL",
+        price: 285,
+        badge: null,
+        tags: ["gold", "protein a", "conjugate", "antibody"]
+      },
+
+      /* ---------- Silica Nanoparticles ---------- */
+      {
+        id: "si-50",
+        name: "Silica Nanoparticles — 50 nm",
+        category: "silica",
+        image: "https://images.unsplash.com/photo-1554475901-4538ddfbccc2?w=800&q=80",
+        spec: "50 nm · plain · 10 mg/mL",
+        price: 155,
+        badge: null,
+        tags: ["silica", "plain", "50nm", "nanoparticle"]
+      },
+      {
+        id: "si-200",
+        name: "Silica Nanoparticles — 200 nm",
+        category: "silica",
+        image: "https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?w=800&q=80",
+        spec: "200 nm · plain · 10 mg/mL",
+        price: 175,
+        badge: null,
+        tags: ["silica", "plain", "200nm", "nanoparticle"]
+      },
+      {
+        id: "si-dye",
+        name: "Dye-Doped Fluorescent Silica",
+        category: "silica",
+        image: "https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=800&q=80",
+        spec: "100 nm · FITC-doped · 5 mg/mL",
+        price: 340,
+        badge: "Popular",
+        tags: ["silica", "fluorescent", "fitc", "dye"]
+      },
+      {
+        id: "si-nh2",
+        name: "Amine-Functionalized Silica",
+        category: "silica",
+        image: "https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=800&q=80",
+        spec: "100 nm · NH₂ surface · 5 mg/mL",
+        price: 220,
+        badge: null,
+        tags: ["silica", "amine", "nh2", "functionalized"]
+      },
+
+      /* ---------- Magnetic Particles ---------- */
+      {
+        id: "mg-1",
+        name: "Magnetic Beads — 1 µm Carboxyl",
+        category: "magnetic",
+        image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=800&q=80",
+        spec: "1 µm · carboxyl · 10 mg/mL",
+        price: 265,
+        badge: "Popular",
+        tags: ["magnetic", "carboxyl", "1um", "beads"]
+      },
+      {
+        id: "mg-3",
+        name: "Magnetic Beads — 3 µm Streptavidin",
+        category: "magnetic",
+        image: "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&q=80",
+        spec: "3 µm · streptavidin · 10 mg/mL",
+        price: 315,
+        badge: null,
+        tags: ["magnetic", "streptavidin", "3um", "beads"]
+      },
+      {
+        id: "mg-si",
+        name: "Silica-Coated Magnetic Beads",
+        category: "magnetic",
+        image: "https://images.unsplash.com/photo-1583912268183-e1ce7e9b1b9b?w=800&q=80",
+        spec: "1 µm · silica shell · 10 mg/mL",
+        price: 245,
+        badge: null,
+        tags: ["magnetic", "silica", "beads", "extraction"]
+      },
+      {
+        id: "mg-pg",
+        name: "Protein G Magnetic Beads",
+        category: "magnetic",
+        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+        spec: "2.8 µm · Protein G · 5 mg/mL",
+        price: 345,
+        badge: null,
+        tags: ["magnetic", "protein g", "beads", "antibody"]
+      },
+
+      /* ---------- Fusion Particles ---------- */
+      {
+        id: "fu-au-mg",
+        name: "Gold–Magnetic Fusion Particles",
+        category: "fusion",
+        image: "https://images.unsplash.com/photo-1617791160536-598cf32026fb?w=800&q=80",
+        spec: "80 nm · gold shell / magnetic core",
+        price: 420,
+        badge: "New",
+        tags: ["fusion", "gold", "magnetic", "multimodal"]
+      },
+      {
+        id: "fu-si-au",
+        name: "Silica–Gold Fusion Particles",
+        category: "fusion",
+        image: "https://images.unsplash.com/photo-1620912189866-474843ba3d11?w=800&q=80",
+        spec: "120 nm · silica core / gold shell",
+        price: 395,
+        badge: null,
+        tags: ["fusion", "silica", "gold", "multimodal"]
+      },
+      {
+        id: "fu-fl-mg",
+        name: "Fluorescent–Magnetic Fusion",
+        category: "fusion",
+        image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80",
+        spec: "200 nm · fluorescent / magnetic",
+        price: 445,
+        badge: null,
+        tags: ["fusion", "fluorescent", "magnetic", "multimodal"]
+      },
+
+      /* ---------- Reagents ---------- */
+      {
+        id: "re-am-hrp",
+        name: "Anti-Mouse IgG — HRP",
+        category: "reagents",
+        image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&q=80",
+        spec: "1 mg · HRP-conjugated · goat",
+        price: 195,
+        badge: null,
+        tags: ["reagent", "antibody", "hrp", "mouse", "elisa"]
+      },
+      {
+        id: "re-ar-hrp",
+        name: "Anti-Rabbit IgG — HRP",
+        category: "reagents",
+        image: "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=800&q=80",
+        spec: "1 mg · HRP-conjugated · goat",
+        price: 195,
+        badge: null,
+        tags: ["reagent", "antibody", "hrp", "rabbit", "elisa"]
+      },
+      {
+        id: "re-sa-hrp",
+        name: "Streptavidin — HRP",
+        category: "reagents",
+        image: "https://images.unsplash.com/photo-1614308457932-e16d85c5d053?w=800&q=80",
+        spec: "1 mg · HRP-conjugated",
+        price: 175,
+        badge: "Popular",
+        tags: ["reagent", "streptavidin", "hrp", "biotin"]
+      },
+      {
+        id: "re-block",
+        name: "Blocking Buffer (10×)",
+        category: "reagents",
+        image: "https://images.unsplash.com/photo-1599113491597-f9c5b05d0a7b?w=800&q=80",
+        spec: "100 mL · BSA-based · 10× concentrate",
+        price: 89,
+        badge: null,
+        tags: ["reagent", "buffer", "blocking", "bsa", "elisa"]
+      },
+      {
+        id: "re-kit",
+        name: "Gold Conjugation Kit",
+        category: "reagents",
+        image: "https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?w=800&q=80",
+        spec: "For 3 × 1 mL gold conjugations · 20 nm",
+        price: 265,
+        badge: null,
+        tags: ["reagent", "kit", "conjugation", "gold"]
+      },
+
+      /* ---------- Services ---------- */
+      {
+        id: "sv-ia",
+        name: "Immunoassay Development",
+        category: "services",
+        image: "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&q=80",
+        spec: "Custom ELISA, CLIA, nano-immunoassay",
+        price: null,
+        badge: "Service",
+        tags: ["service", "immunoassay", "elisa", "development"]
+      },
+      {
+        id: "sv-lf",
+        name: "Lateral Flow Development",
+        category: "services",
+        image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
+        spec: "Rapid immunochromatographic assays",
+        price: null,
+        badge: "Service",
+        tags: ["service", "lateral flow", "rapid test", "development"]
+      },
+      {
+        id: "sv-coat",
+        name: "Surface Coating &amp; Characterization",
+        category: "services",
+        image: "https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?w=800&q=80",
+        spec: "SAMs, polymers, plasma treatment",
+        price: null,
+        badge: "Service",
+        tags: ["service", "surface", "coating", "sam"]
+      },
+      {
+        id: "sv-ab",
+        name: "Custom Antibody Development",
+        category: "services",
+        image: "https://images.unsplash.com/photo-1583912267550-d6c2ac3196c0?w=800&q=80",
+        spec: "Polyclonal and monoclonal development",
+        price: null,
+        badge: "Service",
+        tags: ["service", "antibody", "polyclonal", "monoclonal"]
+      }
+    ];
+
+    /* ============================================================
+       CATEGORIES
+       ============================================================ */
+    const CATEGORIES = [
+      { id: "all",      label: "All Products",       icon: "fa-th-large" },
+      { id: "gold",     label: "Gold Nanoparticles", icon: "fa-atom" },
+      { id: "silica",   label: "Silica",             icon: "fa-flask" },
+      { id: "magnetic", label: "Magnetic Beads",     icon: "fa-magnet" },
+      { id: "fusion",   label: "Fusion Particles",   icon: "fa-fire" },
+      { id: "reagents", label: "Reagents",           icon: "fa-vial" },
+      { id: "services", label: "Services",           icon: "fa-cogs" }
+    ];
+
+    /* ============================================================
+       CONTACT CONFIG
+       ============================================================ */
+    const WHATSAPP_NUMBER = "18602086000";
+    const SALES_EMAIL     = "sales@nanodxcorp.com";
+    const SALES_PHONE     = "+19415048508";
+
+    /* ============================================================
+       STATE
+       ============================================================ */
+    const state = {
+      category: "all",
+      search: "",
+      sort: "featured",
+      current: null,
+      qty: 1
+    };
+
+    /* ============================================================
+       HELPERS
+       ============================================================ */
+    const $  = (sel, ctx) => (ctx || document).querySelector(sel);
+    const $$ = (sel, ctx) => Array.prototype.slice.call((ctx || document).querySelectorAll(sel));
+
+    function escapeHTML(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    function formatPrice(p) {
+      if (p === null || p === undefined) return "Request a Quote";
+      return "$" + p.toFixed(2) + " USD";
+    }
+
+    /* Fallback image if a product image fails to load */
+    function fallbackImage(name) {
+      const label = encodeURIComponent(name.replace(/[^\w\s]/g, "").slice(0, 20));
+      return "https://placehold.co/600x400/075BA5/ffffff?text=" + label;
+    }
+
+    /* ============================================================
+       RENDER CATEGORY PILLS
+       ============================================================ */
+    function renderCategoryPills() {
+      const container = $("#categoryFilters");
+      container.innerHTML = CATEGORIES.map(function (c) {
+        const count = c.id === "all"
+          ? PRODUCTS.length
+          : PRODUCTS.filter(p => p.category === c.id).length;
+        const active = state.category === c.id ? "active" : "";
+        return `
+          <button type="button" class="filter-pill ${active}"
+                  data-category="${c.id}" role="tab" aria-selected="${active ? 'true' : 'false'}">
+            <i class="fas ${c.icon} text-xs"></i>
+            <span>${escapeHTML(c.label)}</span>
+            <span class="count">${count}</span>
+          </button>
+        `;
+      }).join("");
+
+      $$("#categoryFilters .filter-pill").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          state.category = btn.getAttribute("data-category");
+          renderCategoryPills();
+          renderProducts();
+          updateActiveFilterLabel();
+        });
+      });
+    }
+
+    /* ============================================================
+       FILTER + SORT
+       ============================================================ */
+    function getFilteredProducts() {
+      let list = PRODUCTS.slice();
+
+      if (state.category !== "all") list = list.filter(p => p.category === state.category);
+
+      if (state.search) {
+        const q = state.search.toLowerCase();
+        list = list.filter(p =>
+          p.name.toLowerCase().includes(q) ||
+          p.spec.toLowerCase().includes(q) ||
+          p.tags.some(t => t.toLowerCase().includes(q))
+        );
+      }
+
+      switch (state.sort) {
+        case "name-asc":   list.sort((a, b) => a.name.localeCompare(b.name)); break;
+        case "name-desc":  list.sort((a, b) => b.name.localeCompare(a.name)); break;
+        case "price-asc":
+          list.sort((a, b) => (a.price === null ? Infinity : a.price) - (b.price === null ? Infinity : b.price));
+          break;
+        case "price-desc":
+          list.sort((a, b) => (b.price === null ? -Infinity : b.price) - (a.price === null ? -Infinity : a.price));
+          break;
+        default:
+          list.sort((a, b) => {
+            const aS = a.category === "services" ? 1 : 0;
+            const bS = b.category === "services" ? 1 : 0;
+            return aS - bS;
+          });
+      }
+      return list;
+    }
+
+    /* ============================================================
+       RENDER PRODUCT GRID
+       ============================================================ */
+    function renderProducts() {
+      const list = getFilteredProducts();
+      const grid = $("#productGrid");
+      const empty = $("#emptyState");
+
+      $("#resultCount").textContent = list.length;
+
+      if (!list.length) {
+        grid.innerHTML = "";
+        empty.classList.remove("hidden");
+        return;
+      }
+      empty.classList.add("hidden");
+
+      grid.innerHTML = list.map(function (p) {
+        const cat = CATEGORIES.find(c => c.id === p.category) || {};
+        const badgeClass = p.badge === 'New' ? 'new'
+                        : p.badge === 'Service' ? 'service'
+                        : p.badge === 'Popular' ? '' : 'sale';
+        const badgeHTML = p.badge
+          ? `<span class="product-badge ${badgeClass}">${escapeHTML(p.badge)}</span>`
+          : "";
+
+        return `
+          <article class="product-card" data-id="${p.id}">
+            <div class="product-image">
+              <img src="${escapeHTML(p.image)}"
+                   alt="${escapeHTML(p.name)}"
+                   loading="lazy"
+                   onerror="this.onerror=null;this.src='${fallbackImage(p.name)}';" />
+              ${badgeHTML}
+              <span class="product-cat-icon"><i class="fas ${cat.icon || 'fa-box'}"></i></span>
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+              <span class="text-xs font-semibold uppercase tracking-wider text-[color:var(--nd-accent)]">${escapeHTML(cat.label || p.category)}</span>
+              <h3 class="section-heading font-bold text-base leading-snug mt-1.5">${escapeHTML(p.name)}</h3>
+              <p class="text-xs text-[color:var(--nd-text-soft)] mt-2 leading-5 flex-1">${escapeHTML(p.spec)}</p>
+
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                ${p.tags.slice(0, 3).map(t => `<span class="spec-chip">${escapeHTML(t)}</span>`).join("")}
+              </div>
+
+              <div class="flex items-center justify-between mt-5 pt-4 border-t border-[color:var(--nd-border)]">
+                <span class="text-sm font-bold ${p.price === null ? 'text-[color:var(--nd-text-soft)]' : 'text-[color:var(--nd-cyan)]'}">
+                  ${formatPrice(p.price)}
+                </span>
+                <button type="button" class="btn-primary px-4 py-2 rounded-xl text-sm font-semibold buy-btn" data-id="${p.id}">
+                  <i class="fas ${p.price === null ? 'fa-paper-plane' : 'fa-shopping-cart'} mr-1.5 text-xs"></i>
+                  ${p.price === null ? 'Inquire' : 'Buy'}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      $$(".buy-btn", grid).forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          openBuyModal(btn.getAttribute("data-id"));
+        });
+      });
+    }
+
+    /* ============================================================
+       ACTIVE FILTER LABEL
+       ============================================================ */
+    function updateActiveFilterLabel() {
+      const label = $("#activeFilterLabel");
+      const nameEl = $("#activeFilterName");
+      const reset  = $("#resetFilters");
+      const hasFilter = state.category !== "all" || state.search;
+
+      if (state.category !== "all") {
+        const cat = CATEGORIES.find(c => c.id === state.category);
+        nameEl.textContent = cat ? cat.label : state.category;
+        label.classList.remove("hidden");
+      } else if (state.search) {
+        nameEl.textContent = '"' + state.search + '"';
+        label.classList.remove("hidden");
+      } else {
+        label.classList.add("hidden");
+      }
+
+      reset.classList.toggle("hidden", !hasFilter);
+    }
+
+    /* ============================================================
+       BUY MODAL
+       ============================================================ */
+    function openBuyModal(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      state.current = product;
+      state.qty = 1;
+
+      $("#modalProductImage").src = product.image;
+      $("#modalProductImage").alt = product.name;
+      $("#modalProductImage").onerror = function () {
+        this.onerror = null;
+        this.src = fallbackImage(product.name);
+      };
+      $("#modalProductCategory").textContent = (CATEGORIES.find(c => c.id === product.category) || {}).label || product.category;
+      $("#modalProductName").textContent = product.name;
+      $("#modalProductSpec").textContent = product.spec;
+      $("#modalProductPrice").textContent = formatPrice(product.price);
+      $("#qtyInput").value = 1;
+      $("#orderNote").value = "";
+
+      updateOrderLinks();
+
+      const modal = $("#buyModal");
+      modal.classList.add("show");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => $("#qtyInput").focus(), 250);
+    }
+
+    function closeBuyModal() {
+      $("#buyModal").classList.remove("show");
+      document.body.style.overflow = "";
+      state.current = null;
+    }
+
+    function buildOrderMessage() {
+      const p = state.current;
+      if (!p) return "";
+
+      const lines = [
+        "Hello NanoDx Corp,",
+        "",
+        "I'd like to order the following:",
+        "",
+        "• Product: " + p.name,
+        "• Category: " + ((CATEGORIES.find(c => c.id === p.category) || {}).label || p.category),
+        "• Specification: " + p.spec,
+        "• Unit price: " + formatPrice(p.price),
+        "• Quantity: " + state.qty,
+        p.price !== null ? "• Subtotal (estimate): $" + (p.price * state.qty).toFixed(2) + " USD" : "• Pricing: Please confirm",
+        ""
+      ];
+
+      const note = ($("#orderNote").value || "").trim();
+      if (note) {
+        lines.push("Additional notes:");
+        lines.push(note);
+        lines.push("");
+      }
+
+      lines.push("Please confirm availability, shipping, and final pricing.");
+      lines.push("");
+      lines.push("Thank you.");
+
+      return lines.join("\n");
+    }
+
+    function updateOrderLinks() {
+      const message = buildOrderMessage();
+      const encoded = encodeURIComponent(message);
+
+      $("#orderWhatsApp").href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encoded;
+
+      const subject = "Product Order Request — " + (state.current ? state.current.name : "");
+      $("#orderEmail").href =
+        "mailto:" + SALES_EMAIL +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encoded;
+
+      $("#orderPhone").href = "tel:" + SALES_PHONE;
+    }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    let toastTimer;
+    function showToast(msg) {
+      const toast = $("#toast");
+      $("#toastMsg").textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    /* ============================================================
+       EVENT WIRING
+       ============================================================ */
+    function wireEvents() {
+      const search = $("#searchInput");
+      const clear = $("#clearSearch");
+      search.addEventListener("input", function () {
+        state.search = search.value.trim();
+        clear.classList.toggle("hidden", !state.search);
+        renderProducts();
+        updateActiveFilterLabel();
+      });
+      clear.addEventListener("click", function () {
+        search.value = "";
+        state.search = "";
+        clear.classList.add("hidden");
+        renderProducts();
+        updateActiveFilterLabel();
+        search.focus();
+      });
+
+      $("#sortSelect").addEventListener("change", function (e) {
+        state.sort = e.target.value;
+        renderProducts();
+      });
+
+      $("#resetFilters").addEventListener("click", function () {
+        state.category = "all";
+        state.search = "";
+        state.sort = "featured";
+        $("#searchInput").value = "";
+        $("#clearSearch").classList.add("hidden");
+        $("#sortSelect").value = "featured";
+        renderCategoryPills();
+        renderProducts();
+        updateActiveFilterLabel();
+      });
+
+      $("#closeModal").addEventListener("click", closeBuyModal);
+      $("#buyModal").addEventListener("click", function (e) {
+        if (e.target === this) closeBuyModal();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && $("#buyModal").classList.contains("show")) closeBuyModal();
+      });
+
+      $("#qtyMinus").addEventListener("click", function () {
+        state.qty = Math.max(1, state.qty - 1);
+        $("#qtyInput").value = state.qty;
+        updateOrderLinks();
+      });
+      $("#qtyPlus").addEventListener("click", function () {
+        state.qty = Math.min(999, state.qty + 1);
+        $("#qtyInput").value = state.qty;
+        updateOrderLinks();
+      });
+      $("#qtyInput").addEventListener("input", function (e) {
+        let v = parseInt(e.target.value, 10);
+        if (isNaN(v) || v < 1) v = 1;
+        if (v > 999) v = 999;
+        state.qty = v;
+        e.target.value = v;
+        updateOrderLinks();
+      });
+
+      $("#orderNote").addEventListener("input", updateOrderLinks);
+
+      $("#copyOrderBtn").addEventListener("click", function () {
+        const message = buildOrderMessage();
+        const done = function () { showToast("Order details copied to clipboard"); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(message).then(done).catch(function () {
+            fallbackCopy(message, done);
+          });
+        } else {
+          fallbackCopy(message, done);
+        }
+      });
+
+      function fallbackCopy(text, cb) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); cb(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    }
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+    function init() {
+      renderCategoryPills();
+      renderProducts();
+      updateActiveFilterLabel();
+      wireEvents();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,433 @@
+:root {
+  /* Brand */
+  --nd-navy: #071B45;
+  --nd-ocean: #075BA5;
+  --nd-cyan: #079DD0;
+  --nd-teal: #16B8C4;
+  --nd-charcoal: #2C3E50;
+
+  --nd-gradient: linear-gradient(135deg, #071B45 0%, #075BA5 50%, #079DD0 100%);
+  --nd-gradient-soft: linear-gradient(135deg, #075BA5 0%, #079DD0 55%, #16B8C4 100%);
+
+  /* Light theme surfaces */
+  --nd-bg: #ffffff;
+  --nd-bg-alt: #f5f8fc;
+  --nd-surface: #ffffff;
+  --nd-surface-2: #f2f6fb;
+  --nd-border: #dbe4ef;
+  --nd-text: #0f1c2e;
+  --nd-text-soft: #55647a;
+  --nd-accent: #075BA5;
+  --nd-accent-hover: #064a86;
+  --nd-accent-soft: rgba(7, 91, 165, 0.08);
+  --nd-ring: rgba(7, 157, 208, 0.35);
+
+  /* Sizing / motion */
+  --nd-radius: 16px;
+  --nd-radius-lg: 28px;
+  --nd-transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- 2. Dark theme overrides ---------- */
+html.dark {
+  --nd-bg: #050b16;
+  --nd-bg-alt: #08111f;
+  --nd-surface: #0b1524;
+  --nd-surface-2: #101d31;
+  --nd-border: #1c2c45;
+  --nd-text: #e8eef7;
+  --nd-text-soft: #93a4bd;
+  --nd-accent: #079DD0;
+  --nd-accent-hover: #16B8C4;
+  --nd-accent-soft: rgba(7, 157, 208, 0.12);
+  --nd-ring: rgba(22, 184, 196, 0.4);
+  --nd-gradient: linear-gradient(135deg, #16B8C4 0%, #079DD0 45%, #075BA5 100%);
+}
+
+/* ---------- 3. Base ---------- */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--nd-bg);
+  color: var(--nd-text);
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--nd-transition), color var(--nd-transition);
+  margin: 0;
+}
+
+::selection {
+  background: var(--nd-cyan);
+  color: #fff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--nd-bg-alt); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--nd-ocean), var(--nd-cyan));
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--nd-teal); }
+
+/* ---------- 4. Brand heading (gradient text) ---------- */
+.brand-heading {
+  background: var(--nd-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  letter-spacing: -0.015em;
+  overflow:visible;
+}
+
+/* Solid heading fallback for subtitles / cards */
+.section-heading {
+  color: var(--nd-text);
+  letter-spacing: -0.01em;
+}
+
+/* ---------- 5. Logo auto-blend (removes white background) ---------- */
+.logo-auto-blend {
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) saturate(1.1);
+  transition: filter var(--nd-transition);
+}
+html.dark .logo-auto-blend {
+  mix-blend-mode: screen;
+  filter: brightness(1.15) contrast(1.05) saturate(1.15);
+}
+
+/* Wordmark text (used next to logo if PNG is only the icon) */
+.wordmark {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: var(--nd-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Small eyebrow label above headings */
+.eyebrow {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nd-accent);
+  background: var(--nd-accent-soft);
+  border: 1px solid rgba(7, 157, 208, 0.3);
+  border-radius: 999px;
+}
+
+/* ---------- 6. Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--nd-bg) 92%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--nd-border);
+  transition: background-color var(--nd-transition), border-color var(--nd-transition);
+}
+
+/* ---------- 7. Navigation links ---------- */
+.nav-link {
+  position: relative;
+  color: var(--nd-text);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color var(--nd-transition);
+}
+.nav-link:hover { color: var(--nd-accent); }
+
+.nav-link.active {
+  color: var(--nd-accent);
+  font-weight: 600;
+}
+
+/* Animated underline for desktop nav */
+@media (min-width: 1024px) {
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -6px;
+    height: 2px;
+    width: 0;
+    background: var(--nd-gradient-soft);
+    border-radius: 2px;
+    transition: width var(--nd-transition);
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after { width: 100%; }
+}
+
+/* ---------- 8. Buttons ---------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--nd-gradient-soft);
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+  box-shadow: 0 6px 18px -6px rgba(7, 91, 165, 0.55);
+  transition: transform var(--nd-transition), box-shadow var(--nd-transition), filter var(--nd-transition);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.07);
+  box-shadow: 0 12px 26px -8px rgba(7, 157, 208, 0.65);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--nd-accent);
+  border: 1.5px solid var(--nd-accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--nd-transition), color var(--nd-transition),
+              border-color var(--nd-transition), transform var(--nd-transition);
+}
+.btn-outline:hover {
+  background: var(--nd-accent);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ---------- 9. Theme toggle button ---------- */
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid var(--nd-border);
+  background: var(--nd-surface-2);
+  color: var(--nd-text);
+  cursor: pointer;
+  transition: background-color var(--nd-transition), border-color var(--nd-transition),
+              color var(--nd-transition), transform var(--nd-transition);
+}
+.theme-toggle:hover {
+  border-color: var(--nd-accent);
+  color: var(--nd-accent);
+  transform: rotate(12deg) scale(1.05);
+}
+.theme-toggle i { font-size: 1.05rem; }
+
+/* ---------- 10. Mobile menu ---------- */
+.mobile-menu {
+  background: var(--nd-surface);
+  border-top: 1px solid var(--nd-border);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  animation: nd-slide-down 0.25s ease-out;
+}
+.mobile-menu .nav-link { font-size: 1rem; }
+
+@keyframes nd-slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- 11. Cards / stats / features ---------- */
+.stat-card {
+  background: var(--nd-surface);
+  border: 1px solid var(--nd-border);
+  border-radius: var(--nd-radius-lg);
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  transition: transform var(--nd-transition), border-color var(--nd-transition),
+              box-shadow var(--nd-transition);
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--nd-cyan);
+  box-shadow: 0 14px 32px -14px rgba(7, 157, 208, 0.45);
+}
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: var(--nd-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  margin: 0;
+}
+.stat-label {
+  color: var(--nd-text-soft);
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.feature-card {
+  background: var(--nd-surface);
+  border: 1px solid var(--nd-border);
+  border-radius: var(--nd-radius-lg);
+  padding: 2rem 1.6rem;
+  transition: transform var(--nd-transition), border-color var(--nd-transition),
+              box-shadow var(--nd-transition), background-color var(--nd-transition);
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--nd-cyan);
+  box-shadow: 0 20px 44px -18px rgba(7, 91, 165, 0.5);
+}
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: var(--nd-accent-soft);
+  color: var(--nd-cyan);
+  font-size: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+.feature-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--nd-text);
+  margin: 0 0 0.6rem;
+}
+.feature-text {
+  color: var(--nd-text-soft);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ---------- 12. CTA band ---------- */
+.cta-band {
+  background: var(--nd-gradient);
+  position: relative;
+  overflow: hidden;
+}
+.cta-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 15%, rgba(22, 184, 196, 0.35), transparent 60%);
+  pointer-events: none;
+}
+
+/* ---------- 13. Footer ---------- */
+.site-footer {
+  background: var(--nd-bg-alt);
+  border-top: 1px solid var(--nd-border);
+  margin-top: 5rem;
+  transition: background-color var(--nd-transition), border-color var(--nd-transition);
+}
+.footer-title {
+  color: var(--nd-text);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+}
+.footer-link {
+  color: var(--nd-text-soft);
+  text-decoration: none;
+  transition: color var(--nd-transition), padding-left var(--nd-transition);
+}
+.footer-link:hover {
+  color: var(--nd-accent);
+  padding-left: 4px;
+}
+
+/* ---------- 14. Forms (login / register / contact) ---------- */
+.form-card {
+  background: var(--nd-surface);
+  border: 1px solid var(--nd-border);
+  border-radius: 30px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 24px 60px -30px rgba(7, 27, 69, 0.35);
+  transition: background-color var(--nd-transition), border-color var(--nd-transition);
+}
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--nd-text-soft);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.form-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: var(--nd-surface-2);
+  border: 1px solid var(--nd-border);
+  color: var(--nd-text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--nd-transition), box-shadow var(--nd-transition),
+              background-color var(--nd-transition);
+}
+.form-input::placeholder { color: var(--nd-text-soft); opacity: 0.7; }
+.form-input:focus {
+  border-color: var(--nd-cyan);
+  box-shadow: 0 0 0 3px var(--nd-ring);
+  background: var(--nd-surface);
+}
+
+/* Auth split screen gradient panel */
+.auth-panel {
+  background: linear-gradient(135deg, #071B45 0%, #075BA5 55%, #079DD0 100%);
+  position: relative;
+  overflow: hidden;
+}
+.auth-panel::after {
+  content: "";
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(22, 184, 196, 0.45), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* ---------- 15. Utilities ---------- */
+.text-soft { color: var(--nd-text-soft); }
+
+.divider {
+  height: 1px;
+  background: var(--nd-border);
+  border: none;
+  margin: 3rem 0;
+}
+
+/* WhatsApp ping fix for dark mode */
+@keyframes nd-ping {
+  75%, 100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* ---------- 16. Accessibility ---------- */
+:focus-visible {
+  outline: 2px solid var(--nd-cyan);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
